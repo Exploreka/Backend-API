@@ -20,6 +20,8 @@
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.3.2",
     "nodemon": "^2.0.22",
+    "pg": "^8.11.0",
+    "pg-promise": "^11.4.3",
     "sequelize": "^6.31.1"
   }
 }

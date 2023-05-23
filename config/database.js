@@ -1,12 +1,13 @@
-import { Sequelize } from "sequelize";
-
+import * as pg from "pg"
 import dotenv from "dotenv";
-
 dotenv.config()
 
-const db = new Sequelize (process.env.NAME_DATABASE, process.env.NAME_DATABASE_ROOT, process.env.NAME_DATABASE_PASSWORD, {
+const db = new pg.Pool ({
+    user: 'me',
     host: 'localhost',
-    dialect: 'mysql'
+    database: 'api',
+    password: 'password',
+    port: 5432,
 });
 
 export default db;

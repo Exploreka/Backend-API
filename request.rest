@@ -1,0 +1,22 @@
+GET http://localhost:5000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJuYW1lIjoicmFtYXMiLCJlbWFpbCI6InF3ZXF3ZUBleGFtcGxlLmNvbSIsImlhdCI6MTY4NDgzNTc2MCwiZXhwIjoxNjg0ODM1NzgwfQ.M9PvsJ3vCajd2KdgHa9oht-QbHUzjBmpnsIeXoz6aJw
+
+###
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "raasdmas",
+    "email": "yuiyui@example.com",
+    "password": "123qwe123",
+    "confPassword": "123qwe123"
+}
+
+###
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "qweqwe@example.com",
+    "password": "123123"
+}

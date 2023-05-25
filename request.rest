@@ -1,12 +1,15 @@
-### VerifyToken, getUsers
-GET http://localhost:5000/Users
-Authorization: Bearer "token"
+### getUsers
+GET http://localhost:5000/users
 
+### VerifyToken, getUsers
+GET http://localhost:5000/users
+Authorization: 
 ### Register
 POST http://localhost:5000/users
 Content-Type: application/json
 
 {
+    "name": "",
     "email": "",
     "password": "",
     "confPassword": ""

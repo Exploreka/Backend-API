@@ -5,6 +5,7 @@ const { verifyToken } = require('../Middlewares/userAuth')
 
 const router = express.Router()
 
+router.get('/users', getUsers);
 router.get('/users', verifyToken, getUsers);
 router.post('/users', Register);
 router.post('/login', Login);

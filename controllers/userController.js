@@ -11,7 +11,7 @@ const getUsers = async(req, res) => {
         const users = await User.findAll({
             attributes:['id', 'name', 'email']
         });
-        res.join(users);
+        res.json(users);
     } catch (e) {
         console.log(e);
     }

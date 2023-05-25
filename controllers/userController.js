@@ -2,6 +2,7 @@
 const bcrypt = require("bcrypt");
 const db = require("../Models");
 const jwt = require("jsonwebtoken");
+const { validationResult } = require('express-validator')
 
 // Assigning users to the variable User
 const User = db.users;
@@ -20,15 +21,23 @@ const getUsers = async(req, res) => {
 const Register = async(req, res) => {
     const { name, email, password, confPassword} = req.body;
     if(password !== confPassword) return res.stat(400).json({msg: "password and password confirmation invalid"});
+    if(User.findOne({email:email})) {
+        res.json({msg: "email already exist"});
+        return;
+    }
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {
-        await User.create({
-            name: name,
-            email: email,
-            password: hashPassword
-        });
-        res.json({msg: "Your account has been created!"});
+        if(name !== "" && email !== "" && hashPassword !== ""){
+            await User.create({
+                name: name,
+                email: email,
+                password: hashPassword
+            });
+            res.json({msg: "Your account has been created!"});
+        } else {
+            return res.json({msg: "form cannot null"});
+        }
     } catch (error) {
         console.log(error);
     }

@@ -8,7 +8,7 @@ const db = require('./Models')
 const userRoutes = require ('./routes/userRoutes')
 
 //setting up your port
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8000
 
 //assigning the variable app to express
 const app = express()

@@ -10,7 +10,7 @@ const User = db.users;
 const getUsers = async(req, res) => {
     try {
         const users = await User.findAll({
-            attributes:['id_user', 'username_user', 'email_user']
+            attributes:['id_user', 'fullname_user', 'email_user']
         });
         res.json(users);
     } catch (e) {
@@ -18,30 +18,38 @@ const getUsers = async(req, res) => {
     }
 }
 
-const Register = async(req, res) => {
-    const { username, email, password, confPassword} = req.body;
-    if(password !== confPassword) return res.stat(400).json({msg: "password and password confirmation invalid"});
-    // if(User.findOne({email:email})) {
-    //     res.json({msg: "email already exist"});
-    //     return;
-    // }
-    const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(password, salt);
-    try {
-        if(username !== "" && email !== "" && hashPassword !== ""){
-            await User.create({
-                username_user: username,
-                email_user: email,
-                password_user: hashPassword
-            });
-            res.json({msg: "Your account has been created!"});
-        } else {
-            return res.json({msg: "form cannot null"});
-        }
-    } catch (error) {
-        console.log(error);
+const Register = async (req, res) => {
+    const { fullname, email, password, confPassword } = req.body;
+    if (password !== confPassword) {
+      return res.status(400).json({ msg: "Password and password confirmation do not match" });
     }
-}
+  
+    try {
+      // Check if the email already exists in the database
+      const existingUser = await User.findOne({ where: { email_user: email } });
+      if (existingUser) {
+        return res.status(400).json({ msg: "Email already exists" });
+      }
+  
+      const salt = await bcrypt.genSalt();
+      const hashPassword = await bcrypt.hash(password, salt);
+  
+      if (fullname !== "" && email !== "" && hashPassword !== "") {
+        await User.create({
+          fullname_user: fullname,
+          email_user: email,
+          password_user: hashPassword
+        });
+        res.json({ msg: "Your account has been created!" });
+      } else {
+        return res.json({ msg: "Form cannot be null" });
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ msg: "Server error" });
+    }
+  };
+  
 
 const Login = async(req, res) => {
     try {

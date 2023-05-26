@@ -3,16 +3,17 @@ GET http://localhost:5000/users
 
 ### VerifyToken, getUsers
 GET http://localhost:5000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjpudWxsLCJlbWFpbCI6InRlc3QiLCJpYXQiOjE2ODUxMTUyNzUsImV4cCI6MTY4NTExNTQ1NX0.ODX6VWw9h2epbZFV6glb1DKI4ftBKO7XGAEDNnR4Opw
+Authorization: Bearer
+
 ### Register
 POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "name": "test",
-    "email": "test",
-    "password": "test",
-    "confPassword": "test"
+    "fullname": "",
+    "email": "",
+    "password": "",
+    "confPassword": ""
 }
 
 ### Login
@@ -20,8 +21,8 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "test",
-    "password": "test"
+    "email": "",
+    "password": ""
 }
 
 ### Refresh Token

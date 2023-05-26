@@ -1,15 +1,32 @@
-POST http://localhost:8000/users
+### getUsers
+GET http://localhost:5000/users
+
+### VerifyToken, getUsers
+GET http://localhost:5000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjpudWxsLCJlbWFpbCI6InRlc3QiLCJpYXQiOjE2ODUxMTUyNzUsImV4cCI6MTY4NTExNTQ1NX0.ODX6VWw9h2epbZFV6glb1DKI4ftBKO7XGAEDNnR4Opw
+### Register
+POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-  "name" : "",
-  "email" : "Hild@gmail.com",
-  "password" : "",
-  "confPassword" : ""
+    "name": "test",
+    "email": "test",
+    "password": "test",
+    "confPassword": "test"
 }
 
-###
-GET http://localhost:8000/users
-Accept: application/json
+### Login
+POST http://localhost:5000/login
+Content-Type: application/json
 
-###
+{
+    "email": "test",
+    "password": "test"
+}
+
+### Refresh Token
+GET http://localhost:5000/token
+
+### Logout
+DELETE http://localhost:5000/logout
+Content-Type: application/json

@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const sequelize = require('sequelize')
-const db = require('./Models')
+const db = require('./models')
 const userRoutes = require ('./routes/userRoutes')
 
 //setting up your port

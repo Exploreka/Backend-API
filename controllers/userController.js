@@ -1,6 +1,6 @@
 //importing modules
 const bcrypt = require("bcrypt");
-const db = require("../Models");
+const db = require("../models");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require('express-validator')
 
@@ -10,7 +10,7 @@ const User = db.users;
 const getUsers = async(req, res) => {
     try {
         const users = await User.findAll({
-            attributes:['id', 'name', 'email']
+            attributes:['id_user', 'username_user', 'email_user']
         });
         res.json(users);
     } catch (e) {
@@ -19,20 +19,20 @@ const getUsers = async(req, res) => {
 }
 
 const Register = async(req, res) => {
-    const { name, email, password, confPassword} = req.body;
+    const { username, email, password, confPassword} = req.body;
     if(password !== confPassword) return res.stat(400).json({msg: "password and password confirmation invalid"});
-    if(User.findOne({email:email})) {
-        res.json({msg: "email already exist"});
-        return;
-    }
+    // if(User.findOne({email:email})) {
+    //     res.json({msg: "email already exist"});
+    //     return;
+    // }
     const salt = await bcrypt.genSalt();
     const hashPassword = await bcrypt.hash(password, salt);
     try {
-        if(name !== "" && email !== "" && hashPassword !== ""){
+        if(username !== "" && email !== "" && hashPassword !== ""){
             await User.create({
-                name: name,
-                email: email,
-                password: hashPassword
+                username_user: username,
+                email_user: email,
+                password_user: hashPassword
             });
             res.json({msg: "Your account has been created!"});
         } else {
@@ -47,23 +47,23 @@ const Login = async(req, res) => {
     try {
         const user = await User.findAll({
             where:{
-                email: req.body.email
+                email_user: req.body.email
             }
         });
-        const match = await bcrypt.compare(req.body.password, user[0].password);
+        const match = await bcrypt.compare(req.body.password, user[0].password_user);
         if(!match) return res.status(400).json({msg: "Password invalid"});
-        const userId = user[0].id;
-        const name = user[0].name;
-        const email = user[0].email;
-        const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET,{
+        const userId = user[0].id_user;
+        const username = user[0].username_user;
+        const email = user[0].email_user;
+        const accessToken = jwt.sign({userId, username, email}, process.env.ACCESS_TOKEN_SECRET,{
             expiresIn: '180s'
         });
-        const refreshToken = jwt.sign({userId, name, email}, process.env.REFRESH_TOKEN_SECRET,{
+        const refreshToken = jwt.sign({userId, username, email}, process.env.REFRESH_TOKEN_SECRET,{
             expiresIn: '1d'
         });
         await User.update({refresh_token: refreshToken},{
             where:{
-                id: userId
+                id_user: userId
             }
         });
         res.cookie('refreshToken', refreshToken,{
@@ -85,10 +85,10 @@ const Logout = async(req, res) => {
         }
     });
     if(!user[0]) return res.sendStatus(204);
-    const userId = user[0].id;
+    const userId = user[0].id_user;
     await User.update({refresh_token: null},{
         where:{
-            id: userId
+            id_user: userId
         }
     });
     res.clearCookie('refreshToken');
@@ -107,10 +107,10 @@ refreshToken = async(req, res) => {
         if(!user[0]) return res.sendStatus(403);
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err) return res.sendStatus(403);
-            const userId = user[0].id;
-            const name = user[0].name;
-            const email = user[0].email;
-            const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET,{
+            const userId = user[0].id_user;
+            const username = user[0].username_user;
+            const email = user[0].email_user;
+            const accessToken = jwt.sign({userId, username, email}, process.env.ACCESS_TOKEN_SECRET,{
                 expiresIn: '180s'
             });
             res.json({ accessToken });

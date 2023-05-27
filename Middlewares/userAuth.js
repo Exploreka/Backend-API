@@ -9,13 +9,11 @@ const User = db.users;
 
 //Konfigurasi Passport
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 passport.use(
     new GoogleStrategy(
         {
-            clientID: process.env.GOOGLE_CLIENT_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            clientID: GOOGLE_CLIENT_ID,
             callbackURL: "http://localhost:5000/auth/google/callback",
             passReqToCallback: true,
         },

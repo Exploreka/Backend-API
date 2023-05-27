@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const db = require("../models");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require('express-validator')
+const passport = require("passport");
 
 // Assigning users to the variable User
 const User = db.users;
@@ -145,11 +146,60 @@ refreshToken = async(req, res) => {
     }
 }
 
+const callbackGoogle = async (req, res) => {
+    try {
+       await passport.authenticate( 'google', {
+            successRedirect: '/protected',
+            failureRedirect: '/auth/google/failure'
+        })
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const authGoogle = async (req, res) => {
+    try {
+       await passport.authenticate('google', { scope: [ 'email', 'profile' ] })
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+const protected = async (req, res) => {
+    try {
+        res.send(`Hello ${req.user.displayName}`);
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+const logout = async (req, res) => {
+    try {
+        req.logout();
+        req.session.destroy();
+        res.send('Goodbye!');
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+const failed = async (req, res) => {
+    try {
+        res.send('Failed to authenticate..');
+    } catch (e) {
+        console.log(e)
+    }
+}
 module.exports = {
     getUsers,
     Register,
     Logout,
     Login,
     refreshToken,
-    getUserId
+    getUserId,
+    failed,
+    logout,
+    protected,
+    authGoogle,
+    callbackGoogle
 };

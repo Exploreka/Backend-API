@@ -2,11 +2,37 @@
 const express = require("express");
 const db = require("../models");
 const jwt = require("jsonwebtoken");
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 //Assigning db.users to User variable
 const User = db.users;
 
-//Function to check if username or email already exist in the database
-//this is to avoid having two users with the same username and email
+//Konfigurasi Passport
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: "http://localhost:5000/auth/google/callback",
+            passReqToCallback: true,
+        },
+        function (request, accessToken, refreshToken, profile, done) {
+            return done(null, profile);
+        }
+    )
+)
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
 const saveUser = async (req, res, next) => {
     //search the database to see if user exist
     try {

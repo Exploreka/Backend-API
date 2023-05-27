@@ -18,22 +18,39 @@ const getUsers = async(req, res) => {
     }
 }
 
+const getUserId = async (req, res) => {
+    const id = parseInt(req.params.id)
+    try {
+        User.findByPk(id).then(user => {
+            if (user) {
+                return res.status(400).json(user.toJSON());
+            } else {
+                console.log('User not found')
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    } catch (e) {
+        res.status(400).json(e)
+    }
+}
+
 const Register = async (req, res) => {
     const { fullname, email, password, confPassword } = req.body;
     if (password !== confPassword) {
       return res.status(400).json({ msg: "Password and password confirmation do not match" });
     }
-  
+
     try {
       // Check if the email already exists in the database
       const existingUser = await User.findOne({ where: { email_user: email } });
       if (existingUser) {
         return res.status(400).json({ msg: "Email already exists" });
       }
-  
+
       const salt = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(password, salt);
-  
+
       if (fullname !== "" && email !== "" && hashPassword !== "") {
         await User.create({
           fullname_user: fullname,
@@ -49,7 +66,7 @@ const Register = async (req, res) => {
       res.status(500).json({ msg: "Server error" });
     }
   };
-  
+
 
 const Login = async(req, res) => {
     try {
@@ -133,5 +150,6 @@ module.exports = {
     Register,
     Logout,
     Login,
-    refreshToken
+    refreshToken,
+    getUserId
 };

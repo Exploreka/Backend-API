@@ -1,8 +1,12 @@
+GET http://localhost:5000/api/item?id=99
+Accept: application/json
+
+###
 ### getUsers
-GET http://localhost:5000/users
+GET http://localhost:8000/users
 
 ### VerifyToken, getUsers
-GET http://localhost:5000/users
+GET http://localhost:8000/users
 Authorization: Bearer
 
 ### Register
@@ -10,10 +14,10 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "fullname": "",
-    "email": "",
-    "password": "",
-    "confPassword": ""
+    "fullname": "qwe",
+    "email": "qwe@gmail.com",
+    "password": "123456",
+    "confPassword": "123456"
 }
 
 ### Login

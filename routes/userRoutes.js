@@ -1,11 +1,12 @@
 //importing modules
 const express = require('express')
-const { getUsers, Register, Login, Logout, refreshToken } = require('../Controllers/userController')
+const { getUserId, getUsers, Register, Login, Logout, refreshToken } = require('../Controllers/userController')
 const { verifyToken } = require('../Middlewares/userAuth')
 
 const router = express.Router()
 
 router.get('/users', getUsers);
+router.get('/users/:id', getUserId);
 router.get('/users', verifyToken, getUsers);
 router.post('/users', Register);
 router.post('/login', Login);

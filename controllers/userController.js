@@ -21,7 +21,7 @@ const getUsers = async(req, res) => {
 const getUserId = async (req, res) => {
     const id = parseInt(req.params.id)
     try {
-        User.findByPk(id).then(user => {
+        await User.findByPk(id).then(user => {
             if (user) {
                 return res.status(400).json(user.toJSON());
             } else {

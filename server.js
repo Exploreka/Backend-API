@@ -2,16 +2,22 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
+const session = require('express-session');
 const cors = require('cors')
 const sequelize = require('sequelize')
 const db = require('./models')
 const userRoutes = require ('./routes/userRoutes')
+const passport = require("passport");
 
 //setting up your port
 const PORT = process.env.PORT || 8000
 
 //assigning the variable app to express
 const app = express()
+
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //middleware
 app.use(express.json())

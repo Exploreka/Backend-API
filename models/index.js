@@ -22,6 +22,7 @@ db.sequelize = sequelize
 
 //connecting to model
 db.users = require('./user') (sequelize, DataTypes)
+db.attractions = require('./attraction') (sequelize, DataTypes)
 
 //exporting the module
 module.exports = db

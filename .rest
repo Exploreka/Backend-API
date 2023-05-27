@@ -3,10 +3,10 @@ Accept: application/json
 
 ###
 ### getUsers
-GET http://localhost:8000/users
+GET http://localhost:5000/users
 
 ### VerifyToken, getUsers
-GET http://localhost:8000/users
+GET http://localhost:5000/users
 Authorization: Bearer
 
 ### Register
@@ -35,3 +35,34 @@ GET http://localhost:5000/token
 ### Logout
 DELETE http://localhost:5000/logout
 Content-Type: application/json
+
+### getAllAttractions
+GET http://localhost:5000/attractions/
+
+### createAttraction
+POST http://localhost:5000/attractions
+Content-Type: application/json
+
+{
+    "name": "qwe",
+    "price": "1000",
+    "desc": "123456"
+}
+
+### getAttraction
+GET http://localhost:5000/attractions/2
+Accept: application/json
+
+### deleteAttraction
+DELETE http://localhost:5000/attractions/2
+Content-Type: application/json
+
+### updateAttraction
+PUT http://localhost:5000/attractions/2
+Content-Type: application/json
+
+{
+    "name": "zzz",
+    "price": "1000",
+    "desc": "123456"
+}

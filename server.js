@@ -7,6 +7,7 @@ const cors = require('cors')
 const sequelize = require('sequelize')
 const db = require('./models')
 const userRoutes = require ('./routes/userRoutes')
+const attractionRoutes = require ('./routes/attractionRoutes')
 const passport = require("passport");
 
 //setting up your port
@@ -32,6 +33,7 @@ db.sequelize.sync({ force: false }).then(() => {
 
 //routes for the user API
 app.use(userRoutes)
+app.use(attractionRoutes)
 
 //listening to server connection
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))

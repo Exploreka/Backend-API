@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, DataTypes) {
   const Attraction_category = sequelize.define('attraction_category', {
-    'id_destination_cat': {
+    'id_attraction_cat': {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "null",
@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'name_destination_cat': {
+    'name_attraction_cat': {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "null"

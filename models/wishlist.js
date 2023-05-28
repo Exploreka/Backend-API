@@ -10,12 +10,12 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'id_tour_package': {
+    'id_user': {
       type: DataTypes.INTEGER,
       allowNull: true,
       comment: "null"
     },
-    'id_user': {
+    'id_tour_package': {
       type: DataTypes.INTEGER,
       allowNull: true,
       comment: "null"

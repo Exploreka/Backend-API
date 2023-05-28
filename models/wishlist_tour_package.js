@@ -1,8 +1,8 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  const Wishlist =  sequelize.define('wishlist', {
-    'id_wishlist': {
+  const Wishlist_Tour_Package =  sequelize.define('wishlist_tour_package', {
+    'id_wishlist_tour_package': {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "null",
@@ -21,9 +21,9 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null"
     }
   }, {
-    tableName: 'wishlist',
+    tableName: 'wishlist_tour_package',
     timestamps: true,
     freezeTableName: true
   });
-  return Wishlist
+  return Wishlist_Tour_Package
 };

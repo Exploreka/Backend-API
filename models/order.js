@@ -20,11 +20,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       comment: "null"
     },
-    'id_method': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null"
-    },
     'qty_order': {
       type: DataTypes.INTEGER,
       allowNull: true,

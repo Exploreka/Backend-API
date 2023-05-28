@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('relation_tour_package_cat', {
+  const Relation_Tour_Package_Cat =  sequelize.define('relation_tour_package_cat', {
     'id_package_cat': {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,6 +15,9 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     }
   }, {
-    tableName: 'relation_tour_package_cat'
+    tableName: 'relation_tour_package_cat',
+    timestamps: true,
+    freezeTableName: true
   });
+  return Relation_Tour_Package_Cat
 };

@@ -13,7 +13,13 @@ module.exports = function(sequelize, DataTypes) {
     'id_province': {
       type: DataTypes.INTEGER,
       allowNull: true,
-      comment: "null"
+      comment: "null",
+      foreignKey: {
+        references: {
+          table: 'province',
+          column: 'id_province'
+        }
+      }
     },
     'name_city': {
       type: DataTypes.STRING,

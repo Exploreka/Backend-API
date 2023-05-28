@@ -13,12 +13,24 @@ module.exports = function(sequelize, DataTypes) {
     'id_user': {
       type: DataTypes.INTEGER,
       allowNull: true,
-      comment: "null"
+      comment: "null",
+      foreignKey: {
+        references: {
+          table: 'user',
+          column: 'id_user'
+        }
+      }
     },
     'id_tour_package': {
       type: DataTypes.INTEGER,
       allowNull: true,
-      comment: "null"
+      comment: "null",
+      foreignKey: {
+        references: {
+          table: 'tour_package',
+          column: 'id_tour_package'
+        }
+      }
     },
     'qty_order': {
       type: DataTypes.INTEGER,

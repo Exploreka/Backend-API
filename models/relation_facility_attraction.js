@@ -6,13 +6,25 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "null",
-      primaryKey: true
+      primaryKey: true,
+      foreignKey: {
+        references: {
+          table: 'facility',
+          column: 'id_facility'
+        }
+      }
     },
     'id_attraction': {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "null",
-      primaryKey: true
+      primaryKey: true,
+      foreignKey: {
+        references: {
+          table: 'attraction',
+          column: 'id_attraction'
+        }
+      }
     }
   }, {
     tableName: 'relation_facility_attraction',

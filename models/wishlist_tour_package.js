@@ -1,8 +1,8 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  const Order = sequelize.define('order', {
-    'id_order': {
+  const Wishlist_Tour_Package =  sequelize.define('wishlist_tour_package', {
+    'id_wishlist_tour_package': {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "null",
@@ -31,31 +31,11 @@ module.exports = function(sequelize, DataTypes) {
           column: 'id_tour_package'
         }
       }
-    },
-    'qty_order': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null"
-    },
-    'total_bill': {
-      type: DataTypes.BIGINT,
-      allowNull: true,
-      comment: "null"
-    },
-    'trip_date': {
-      type: DataTypes.DATEONLY,
-      allowNull: true,
-      comment: "null"
-    },
-    'status': {
-      type: DataTypes.STRING,
-      allowNull: true,
-      comment: "null"
     }
   }, {
-    tableName: 'order',
+    tableName: 'wishlist_tour_package',
     timestamps: true,
     freezeTableName: true
   });
-  return Order
+  return Wishlist_Tour_Package
 };

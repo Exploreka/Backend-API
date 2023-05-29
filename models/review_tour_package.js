@@ -1,8 +1,8 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  const Review = sequelize.define('review', {
-    'id_review': {
+  const Review_Tour_Package = sequelize.define('review_tour_package', {
+    'id_review_tour_package': {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "null",
@@ -10,20 +10,27 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'id_tour_package': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null"
-    },
-    'id_attraction': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null"
-    },
     'id_user': {
       type: DataTypes.INTEGER,
       allowNull: true,
-      comment: "null"
+      comment: "null",
+      foreignKey: {
+        references: {
+          table: 'user',
+          column: 'id_user'
+        }
+      }
+    },
+    'id_tour_package': {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      comment: "null",
+      foreignKey: {
+        references: {
+          table: 'tour_package',
+          column: 'id_tour_package'
+        }
+      }
     },
     'rating': {
       type: DataTypes.DOUBLE,
@@ -36,9 +43,9 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null"
     }
   }, {
-    tableName: 'review',
+    tableName: 'review_tour_package',
     timestamps: true,
     freezeTableName: true
   });
-  return Review
+  return Review_Tour_Package
 };

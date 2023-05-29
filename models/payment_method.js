@@ -10,11 +10,6 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'id_order': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null"
-    },
     'name_method': {
       type: DataTypes.STRING,
       allowNull: true,

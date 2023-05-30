@@ -47,6 +47,7 @@ Content-Type: application/json
     "name": "qwe",
     "price": "1000",
     "desc": "123456"
+    "id"
 }
 
 ### getAttraction
@@ -65,4 +66,32 @@ Content-Type: application/json
     "name": "zzz",
     "price": "1000",
     "desc": "123456"
+}
+
+
+### getAllAttraction cat
+GET http://localhost:5000/attractionCat
+
+### createAttraction Cat
+POST http://localhost:5000/attractionCat
+Content-Type: application/json
+
+{
+    "name": "gonong"
+}
+
+### getAttraction Cat by ID
+GET http://localhost:5000/attractionCat/1
+Accept: application/json
+
+### deleteAttraction cat
+DELETE http://localhost:5000/attractionCat/12
+Content-Type: application/json
+
+### updateAttraction cat
+PUT http://localhost:5000/attractionCat/2
+Content-Type: application/json
+
+{
+    "name": "Gunung"
 }

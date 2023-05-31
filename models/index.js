@@ -43,14 +43,19 @@ db.wishlist_tour_packages = require('./wishlist_tour_package') (sequelize, DataT
 // associate
 db.attraction_categories.hasMany(db.attractions, { foreignKey: 'id_attraction_cat' })
 db.attractions.belongsTo(db.attraction_categories, { foreignKey: 'id_attraction_cat' })
-db.cities.hasMany(db.attraction_categories, { foreignKey: 'id_city' })
+db.cities.hasMany(db.attractions, { foreignKey: 'id_city' })
 db.attractions.belongsTo(db.cities, { foreignKey: 'id_city' })
+db.partners.hasMany(db.tour_packages, { foreignKey: 'id_partner' })
+db.tour_packages.belongsTo(db.partners, { foreignKey: 'id_partner' })
+db.attractions.hasMany(db.tour_packages, { foreignKey: 'id_attraction' })
+db.tour_packages.belongsTo(db.attractions, { foreignKey: 'id_attraction' })
 
 // sync alter
 db.attraction_categories.sync({ alter: true })
 db.attractions.sync({ alter: true })
+db.tour_packages.sync({ alter: true })
 db.cities.sync({ alter: true })
-db.attractions.sync({ alter: true })
+db.partners.sync({ alter: true })
 
 //exporting the module
 module.exports = db

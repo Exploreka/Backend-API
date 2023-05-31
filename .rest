@@ -94,3 +94,16 @@ Content-Type: application/json
 {
     "name": "Gunung"
 }
+
+### getAllAttraction cat
+GET http://localhost:5000/tour_package
+
+### create tour package
+POST http://localhost:5000/tour_package
+Content-Type: application/json
+
+{
+    "name": "qwe",
+    "price": "1000",
+    "desc": "123456"
+}

@@ -1,6 +1,6 @@
 const db = require("../models");
-const wishlistattraction = require("../models/attraction");
-const WishlistAttraction = db.attractions;
+const wishlistattraction = require("../models/wishlist_attraction");
+const WishlistAttraction = db.wishlist_attractions;
 
 // Get all attractions
 const getAllWishlistAttractions = async (req, res) => {

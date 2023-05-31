@@ -9,6 +9,7 @@ const db = require('./models')
 const userRoutes = require ('./routes/userRoutes')
 const attractionRoutes = require ('./routes/attractionRoutes')
 const attractionCatRoutes = require ('./routes/attractionCatRoutes')
+const tourPackageRoutes = require ('./routes/tourPackageRoutes')
 const passport = require("passport");
 
 //setting up your port
@@ -36,6 +37,7 @@ db.sequelize.sync({ force: false }).then(() => {
 app.use(userRoutes)
 app.use(attractionRoutes)
 app.use(attractionCatRoutes)
+app.use(tourPackageRoutes)
 
 //listening to server connection
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))

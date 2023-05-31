@@ -10,28 +10,6 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'id_partner': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'partner',
-          column: 'id_partner'
-        }
-      }
-    },
-    'id_attraction': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'attraction',
-          column: 'id_attraction'
-        }
-      }
-    },
     'name_tour_package': {
       type: DataTypes.STRING,
       allowNull: true,

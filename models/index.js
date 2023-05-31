@@ -87,7 +87,6 @@ db.provinces.sync({ alter: true })
 db.partners.sync({ alter: true })
 db.relation_facility_attractions.sync({ alter: true })
 db.relation_tour_package_cats.sync({ alter: true })
-=======
 db.user.sync({ alter: true })
 db.wishlist_attractions.sync({ alter: true })
 

@@ -10,17 +10,6 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'id_province': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'province',
-          column: 'id_province'
-        }
-      }
-    },
     'name_city': {
       type: DataTypes.STRING,
       allowNull: true,

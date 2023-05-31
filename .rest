@@ -37,7 +37,7 @@ DELETE http://localhost:5000/logout
 Content-Type: application/json
 
 ### getAllAttractions
-GET http://localhost:5000/attractions/
+GET http://localhost:5000/attractions
 
 ### createAttraction
 POST http://localhost:5000/attractions
@@ -47,7 +47,6 @@ Content-Type: application/json
     "name": "qwe",
     "price": "1000",
     "desc": "123456"
-    "id"
 }
 
 ### getAttraction

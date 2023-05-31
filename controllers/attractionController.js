@@ -5,7 +5,9 @@ const Attraction = db.attractions;
 // Get all attractions
 const getAllAttractions = async (req, res) => {
   try {
-    const attractions = await Attraction.findAll();
+    const attractions = await Attraction.findAll({
+      include: [db.attraction_categories, db.cities],
+    });
     res.json(attractions);
   } catch (e) {
     console.log(e);

@@ -10,39 +10,6 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'id_attraction_cat': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'attraction_category',
-          column: 'id_attraction_cat'
-        }
-      }
-    },
-    'id_city': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'city',
-          column: 'id_city'
-        }
-      }
-    },
-    'id_province': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'province',
-          column: 'id_province'
-        }
-      }
-    },
     'name_attraction': {
       type: DataTypes.STRING,
       allowNull: true,

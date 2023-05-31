@@ -6,7 +6,7 @@ const { Op } = require('sequelize');
 // Get all attraction categories
 const getAllAttractionCat = async (req, res) => {
   try {
-    const attraction_categories = await AttractionCat.findAll();
+    const attraction_categories = await AttractionCat.findAll({});
     res.json(attraction_categories);
   } catch (e) {
     console.log(e);

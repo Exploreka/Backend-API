@@ -22,7 +22,7 @@ const getWishlistAttractionById = async (req, res) => {
             if (wishlistattraction) {
                 return res.status(400).json(wishlistattraction.toJSON());
             } else {
-                console.log('Attraction not found')
+                console.log('Wishlist Attraction not found')
             }
         }).catch(error => {
             console.error('Error:', error);

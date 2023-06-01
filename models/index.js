@@ -51,7 +51,7 @@ db.partners.hasMany(db.tour_packages, { foreignKey: 'id_partner' })
 db.tour_packages.belongsTo(db.partners, { foreignKey: 'id_partner' })
 db.attractions.hasMany(db.tour_packages, { foreignKey: 'id_attraction' })
 db.tour_packages.belongsTo(db.attractions, { foreignKey: 'id_attraction' })
-db.attractions.belongsToMany(db.facilities, { 
+db.attractions.belongsToMany(db.facilities, {
     through: "relation_facility_attraction",
     as: "facilities",
     foreignKey: "id_attraction"
@@ -60,7 +60,7 @@ db.facilities.belongsToMany(db.attractions, {
     through: "relation_facility_attraction",
     as: "attractions",
     foreignKey: "id_facility"})
-db.tour_packages.belongsToMany(db.package_categories, { 
+db.tour_packages.belongsToMany(db.package_categories, {
     through: "relation_tour_package",
     as: "package_categories",
     foreignKey: "id_tour_package"
@@ -76,12 +76,19 @@ db.wishlist_attractions.belongsTo(db.attractions, { foreignKey: 'id_wishlist_att
 db.user.hasMany(db.wishlist_attractions, { foreignKey: 'id_user' })
 db.wishlist_attractions.belongsTo(db.cities, { foreignKey: 'id_user' })
 
+//associate wishlist tour package
+db.tour_packages.hasMany(db.wishlist_tour_packages, { foreignKey: 'id_tour_package'})
+db.wishlist_tour_packages.belongsTo(db.tour_packages, { foreignKey : 'id_tour_package'})
+db.user.hasMany(db.wishlist_tour_packages, { foreignKey : 'id_tour_package'})
+db.wishlist_tour_packages.belongsTo(db.wishlist_tour_packages, { foreignKey : 'id_tour_package' })
+
 // sync alter
 db.attraction_categories.sync({ alter: true })
 db.attractions.sync({ alter: true })
 db.tour_packages.sync({ alter: true })
 db.package_categories.sync({ alter: true })
 db.cities.sync({ alter: true })
+db.wishlist_tour_packages.async({alter:true})
 
 db.provinces.sync({ alter: true })
 db.partners.sync({ alter: true })

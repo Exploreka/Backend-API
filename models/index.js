@@ -71,16 +71,22 @@ db.package_categories.belongsToMany(db.tour_packages, {
     foreignKey: "id_package_cat"})
 
 // associate wishlist attraction
-db.attractions.hasMany(db.wishlist_attractions, { foreignKey: 'id_wishlist_attraction' })
-db.wishlist_attractions.belongsTo(db.attractions, { foreignKey: 'id_wishlist_attraction' })
+db.attractions.hasMany(db.wishlist_attractions, { foreignKey: 'id_attraction' })
+db.wishlist_attractions.belongsTo(db.attractions, { foreignKey: 'id_attraction' })
 db.users.hasMany(db.wishlist_attractions, { foreignKey: 'id_user' })
 db.wishlist_attractions.belongsTo(db.users, { foreignKey: 'id_user' })
+
+// associate Review Controller
+db.user.hasMany(db.review_attractions, {foreignKey:'id_user'})
+db.review_attractions.belongsTo(db.user,{foreignKey: 'id_user'})
+db.attractions.hasMany(db.review_attractions, {foreignKey: 'id_attraction'})
+db.review_attractions.belongsTo(db.attractions, {foreignKey: 'id_attraction'})
 
 //associate wishlist tour package
 db.tour_packages.hasMany(db.wishlist_tour_packages, { foreignKey: 'id_tour_package'})
 db.wishlist_tour_packages.belongsTo(db.tour_packages, { foreignKey : 'id_tour_package'})
-db.user.hasMany(db.wishlist_tour_packages, { foreignKey : 'id_tour_package'})
-db.wishlist_tour_packages.belongsTo(db.wishlist_tour_packages, { foreignKey : 'id_tour_package' })
+db.user.hasMany(db.wishlist_tour_packages, { foreignKey : 'id_user'})
+db.wishlist_tour_packages.belongsTo(db.wishlist_tour_packages, { foreignKey : 'id_user' })
 
 // sync alter
 db.attraction_categories.sync({ alter: true })
@@ -89,6 +95,8 @@ db.tour_packages.sync({ alter: true })
 db.package_categories.sync({ alter: true })
 db.cities.sync({ alter: true })
 db.wishlist_tour_packages.async({alter:true})
+db.review_attractions.async({alter:true})
+db.review_tour_packages.async({alter:true})
 
 db.provinces.sync({ alter: true })
 db.partners.sync({ alter: true })

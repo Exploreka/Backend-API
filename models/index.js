@@ -88,6 +88,12 @@ db.wishlist_tour_packages.belongsTo(db.tour_packages, { foreignKey : 'id_tour_pa
 db.user.hasMany(db.wishlist_tour_packages, { foreignKey : 'id_user'})
 db.wishlist_tour_packages.belongsTo(db.wishlist_tour_packages, { foreignKey : 'id_user' })
 
+////associate review tour package
+db.user.hasMany(db.review_tour_packages, {foreignKey:'id_user'})
+db.review_tour_packages.belongsTo(db.user,{foreignKey: 'id_user'})
+db.tour_packages.hasMany(db.review_tour_packages, {foreignKey: 'id_tour_package'})
+db.review_attractions.belongsTo(db.tour_packages, {foreignKey: 'id_tour_package'})
+
 // sync alter
 db.attraction_categories.sync({ alter: true })
 db.attractions.sync({ alter: true })

@@ -1,5 +1,4 @@
 const db = require("../models");
-const attraction = require("../models/attraction");
 const Attraction = db.attractions;
 
 // Get all attractions

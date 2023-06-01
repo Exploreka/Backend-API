@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'province',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   });
   return Province

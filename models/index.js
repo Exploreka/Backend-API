@@ -73,8 +73,8 @@ db.package_categories.belongsToMany(db.tour_packages, {
 // associate wishlist attraction
 db.attractions.hasMany(db.wishlist_attractions, { foreignKey: 'id_wishlist_attraction' })
 db.wishlist_attractions.belongsTo(db.attractions, { foreignKey: 'id_wishlist_attraction' })
-db.user.hasMany(db.wishlist_attractions, { foreignKey: 'id_user' })
-db.wishlist_attractions.belongsTo(db.cities, { foreignKey: 'id_user' })
+db.users.hasMany(db.wishlist_attractions, { foreignKey: 'id_user' })
+db.wishlist_attractions.belongsTo(db.users, { foreignKey: 'id_user' })
 
 // sync alter
 db.attraction_categories.sync({ alter: true })
@@ -87,7 +87,7 @@ db.provinces.sync({ alter: true })
 db.partners.sync({ alter: true })
 db.relation_facility_attractions.sync({ alter: true })
 db.relation_tour_package_cats.sync({ alter: true })
-db.user.sync({ alter: true })
+db.users.sync({ alter: true })
 db.wishlist_attractions.sync({ alter: true })
 
 

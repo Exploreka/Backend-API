@@ -1,5 +1,4 @@
 const db = require("../models");
-const attraction_category = require("../models/attraction_category");
 const AttractionCat = db.attraction_categories;
 const { Op } = require('sequelize');
 

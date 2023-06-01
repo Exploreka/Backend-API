@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'city',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   });
   return City

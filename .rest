@@ -1,4 +1,4 @@
-GET http://localhost:5000/api/item?id=99
+GET http://localhost:5000/users/1
 Accept: application/json
 
 ###
@@ -7,33 +7,32 @@ GET http://localhost:5000/users
 
 ### VerifyToken, getUsers
 GET http://localhost:5000/users
-Authorization: Bearer
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsInVzZXJuYW1lIjpudWxsLCJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwiaWF0IjoxNjg1NjkzNTc0LCJleHAiOjE2ODU2OTM3NTR9.fbzeCk3w8WKW6tPhVJJXsTlQJ-nu83vN_ExQDT0cJ3k
 ### Register
 POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "fullname": "qwe",
-    "email": "qwe@gmail.com",
+    "fullname": "Werner Bros",
+    "email": "werner@gmail.com",
     "password": "123456",
     "confPassword": "123456"
 }
 
 ### Login
-POST http://localhost:5000/login
+POST http://localhost:5000/users/login
 Content-Type: application/json
 
 {
-    "email": "",
-    "password": ""
+    "email": "johndoe@gmail.com",
+    "password": "123456"
 }
 
 ### Refresh Token
 GET http://localhost:5000/token
 
 ### Logout
-DELETE http://localhost:5000/logout
+DELETE http://localhost:5000/users/logout
 Content-Type: application/json
 
 ### getAllAttractions

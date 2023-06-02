@@ -4,29 +4,29 @@ const db = require("../models");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require('express-validator')
 const passport = require("passport");
+const user = require("../models/user");
 
 // Assigning users to the variable User
 const User = db.users;
 
 const getUsers = async(req, res) => {
     try {
-        const users = await User.findAll({
-            attributes:['id_user', 'fullname_user', 'email_user']
-        });
-        res.json(users);
+        const user = await User.findAll();
+        res.json(user);
     } catch (e) {
         console.log(e);
     }
 }
 
-const getUserId = async (req, res) => {
+const getUserById = async (req, res) => {
     const id = parseInt(req.params.id)
     try {
         await User.findByPk(id).then(user => {
             if (user) {
                 return res.status(400).json(user.toJSON());
             } else {
-                console.log('User not found')
+                console.log('User not found');
+                return res.status(404).json({ error: 'User not found' });
             }
         }).catch(error => {
             console.error('Error:', error);
@@ -102,30 +102,41 @@ const Login = async(req, res) => {
     }
 }
 
-const Logout = async(req, res) => {
-    const refreshToken = req.cookies.refresh_token;
-    if(!refreshToken) return res.sendStatus(204);
-    const user = await User.findAll({
-        where:{
-            refresh_token: refreshToken
+const Logout = async (req, res) => {
+    try {
+      const refreshToken = req.cookies.refresh_token;
+      if (!refreshToken) return res.sendStatus(204);
+  
+      const user = await User.findOne({
+        where: {
+          refresh_token: refreshToken,
+        },
+      });
+      if (!user[0]) return res.sendStatus(204);
+      const id = user[0].id_user;
+      await User.update(
+        { refresh_token: null },
+        {
+          where: {
+            id_user: id,
+          },
         }
-    });
-    if(!user[0]) return res.sendStatus(204);
-    const userId = user[0].id_user;
-    await User.update({refresh_token: null},{
-        where:{
-            id_user: userId
-        }
-    });
-    res.clearCookie('refreshToken');
-    return res.sendStatus(200);
-}
+      );
+      req.session.destroy();
+      res.clearCookie('refreshToken');
+      return res.sendStatus(200).json({ message: 'Logout success!' });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ message: 'Failed to logout' });
+    }
+  };
+  
 
-refreshToken = async(req, res) => {
+const refreshToken = async(req, res) => {
     try {
         const refreshToken = req.cookies.refresh_token;
         if(!refreshToken) return res.sendStatus(401);
-        const user = await Users.findAll({
+        const user = await User.findAll({
             where:{
                 refresh_token: refreshToken
             }
@@ -173,16 +184,6 @@ const protected = async (req, res) => {
     }
 }
 
-const logout = async (req, res) => {
-    try {
-        req.logout();
-        req.session.destroy();
-        res.send('Goodbye!');
-    } catch (e) {
-        console.log(e)
-    }
-}
-
 const failed = async (req, res) => {
     try {
         res.send('Failed to authenticate..');
@@ -190,15 +191,61 @@ const failed = async (req, res) => {
         console.log(e)
     }
 }
+
+  const updateUser = async (req, res) => {
+    const id = parseInt(req.params.id);
+    const { username, fullname, address, phone, photo } = req.body;
+    try {
+      const user = await User.findByPk(id);
+      if (user) {
+        const updatedUser = await user.update({
+            username_user: username,
+            fullname_user: fullname,
+            address_user: address,
+            phone_user: phone,
+            photo_user: photo,
+        });
+        return res.status(200).json({ message: 'user profile updated successfully', user: updatedUser });
+      } else {
+        return res.status(404).json({ message: 'user not found' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+  const deleteUserById = async (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        const user = await User.findByPk(id);
+        if (user) {
+            await User.destroy({
+                where: {
+                    id_user: id
+                }
+            });
+            return res.status(200).json({ message: 'User deleted successfully' });
+        } else {
+            console.log('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 module.exports = {
     getUsers,
+    getUserById,
     Register,
-    Logout,
     Login,
+    Logout,
     refreshToken,
-    getUserId,
+    updateUser,
+    deleteUserById,
     failed,
-    logout,
     protected,
     authGoogle,
     callbackGoogle

@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null"
     },
     'desc_attraction': {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2500),
       allowNull: true,
       comment: "null"
     },
@@ -45,16 +45,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       comment: "null"
     },
-    'open_day': {
-      type: DataTypes.DATEONLY,
-      allowNull: true,
-      comment: "null"
-    },
-    'close_day': {
-      type: DataTypes.DATEONLY,
-      allowNull: true,
-      comment: "null"
-    },
     'open_hour': {
       type: DataTypes.TIME,
       allowNull: true,
@@ -67,7 +57,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'attraction',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   });
   return Attraction

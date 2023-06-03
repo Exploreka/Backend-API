@@ -33,7 +33,7 @@ const getTourPackageById = async (req, res) => {
 
 // Create a new package
 const createTourPackage = async (req, res) => {
-  const {name, price, desc, photo, rating, coordinate, start_date, end_date} = req.body;
+  const {name, price, desc, photo, rating, coordinate, start_hour, end_hour} = req.body;
   try {
     const newTourPackage = await Tour_package.create({
       name_tour_package: name,
@@ -42,8 +42,8 @@ const createTourPackage = async (req, res) => {
       photo_tour_package: photo,
       rating_avg_tour_package: rating,
       coordinate_package: coordinate,
-      start_date: start_date,
-      end_date: end_date,
+      start_hour: start_hour,
+      end_hour: end_hour,
     });
     res.status(201).json(newTourPackage);
   } catch (err) {

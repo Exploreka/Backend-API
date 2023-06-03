@@ -12,7 +12,7 @@ const User = db.users;
 const getUsers = async(req, res) => {
     try {
         const user = await User.findAll();
-        res.json(user);
+        return res.status(200).json({status: 'Success', message: 'Data retrieved successfully!', data:  user });
     } catch (e) {
         console.log(e);
     }
@@ -23,8 +23,8 @@ const getUserById = async (req, res) => {
     try {
         await User.findByPk(id).then(user => {
             if (user) {
-                return res.status(400).json(user.toJSON());
-            } else {
+                return res.status(200).json({status: 'Success', message: 'Data retrieved successfully!', data: user.toJSON() });
+             } else {
                 console.log('User not found');
                 return res.status(404).json({ error: 'User not found' });
             }
@@ -53,14 +53,14 @@ const Register = async (req, res) => {
       const hashPassword = await bcrypt.hash(password, salt);
 
       if (fullname !== "" && email !== "" && hashPassword !== "") {
-        await User.create({
+        const user = await User.create({
           fullname_user: fullname,
           email_user: email,
           password_user: hashPassword
         });
-        res.json({ msg: "Your account has been created!" });
+        res.status(201).json({ status: 'Success', message: 'Your account has been created!', data: user.toJSON() });
       } else {
-        return res.json({ msg: "Form cannot be null" });
+        return res.status(400).json({ msg: "Form cannot be null" });
       }
     } catch (error) {
       console.log(error);
@@ -96,7 +96,8 @@ const Login = async(req, res) => {
             httpOnly: true,
             maxAge: 24 * 60 * 60 * 1000
         });
-        res.json({ accessToken });
+        res.status(200).json({ status: 'Success', message: 'Login successful!', data: { accessToken } });
+
     } catch (error) {
         res.status(404).json({msg:"Email invalid"});
     }
@@ -205,7 +206,7 @@ const failed = async (req, res) => {
             phone_user: phone,
             photo_user: photo,
         });
-        return res.status(200).json({ message: 'user profile updated successfully', user: updatedUser });
+        return res.status(200).json({ status: 'Success', message: 'User profile updated successfully!', data: updatedUser.toJSON() });
       } else {
         return res.status(404).json({ message: 'user not found' });
       }
@@ -225,7 +226,7 @@ const failed = async (req, res) => {
                     id_user: id
                 }
             });
-            return res.status(200).json({ message: 'User deleted successfully' });
+            return res.status(200).json({ status: 'Success', message: 'User deleted successfully!', data: user.toJSON() });
         } else {
             console.log('User not found');
             return res.status(404).json({ error: 'User not found' });

@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   }, {
     tableName: 'attraction_category',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   });
   return Attraction_category

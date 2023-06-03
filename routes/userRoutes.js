@@ -1,9 +1,8 @@
 //importing modules
 const express = require('express')
-const { 
-    getUserId, getUsers, Register, Login, Logout, refreshToken, authGoogle, callbackGoogle, protected, logout, failed 
-} = require('../Controllers/userController')
-const { verifyToken } = require('../Middlewares/userAuth')
+
+const userController = require('../controllers/userController');
+const { verifyToken } = require('../middlewares/userAuth')
 
 const router = express.Router()
 
@@ -11,17 +10,17 @@ function isLoggedIn(req, res, next) {
     req.user ? next() : res.sendStatus(401);
 }
 
-router.get('/users', getUsers);
-router.get('/users/:id', getUserId);
-router.get('/users', verifyToken, getUsers);
-router.post('/users', Register);
-router.post('/login', Login);
-router.get('/token', refreshToken);
-router.delete('/logout', Logout);
-router.get('/auth/google', authGoogle)
-router.get('/auth/google/callback', callbackGoogle)
-router.get('/protected', isLoggedIn ,protected)
-router.get('/logout', logout)
-router.get('/auth/google/failure', failed)
+router.get('/users', verifyToken, userController.getUsers);
+router.get('/users/:id', userController.getUserById);
+router.get('/users/auth/google', userController.authGoogle)
+router.get('/users/auth/google/callback', userController.callbackGoogle)
+router.get('/protected', isLoggedIn, userController.protected)
+router.get('/token', userController.refreshToken);
+router.get('/users/auth/google/failure', userController.failed)
+router.patch('/users/:id', userController.updateUser);
+router.post('/users/register', userController.Register);
+router.post('/users/login', userController.Login);
+router.delete('/users/logout', userController.Logout);
+router.delete('/users/:id', userController.deleteUserById);
 
 module.exports = router

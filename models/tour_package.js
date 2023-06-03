@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null"
     },
     'desc_tour_package': {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(2500),
       allowNull: true,
       comment: "null"
     },
@@ -35,19 +35,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       comment: "null"
     },
-    'start_date': {
-      type: DataTypes.DATEONLY,
+    'start_hour': {
+      type: DataTypes.TIME,
       allowNull: true,
       comment: "null"
     },
-    'end_date': {
-      type: DataTypes.DATEONLY,
+    'end_hour': {
+      type: DataTypes.TIME,
       allowNull: true,
       comment: "null"
     }
   }, {
     tableName: 'tour_package',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   });
   return Tour_package

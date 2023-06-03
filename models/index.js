@@ -77,20 +77,20 @@ db.users.hasMany(db.wishlist_attractions, { foreignKey: 'id_user' })
 db.wishlist_attractions.belongsTo(db.users, { foreignKey: 'id_user' })
 
 // associate Review Controller
-db.user.hasMany(db.review_attractions, {foreignKey:'id_user'})
-db.review_attractions.belongsTo(db.user,{foreignKey: 'id_user'})
+db.users.hasMany(db.review_attractions, {foreignKey:'id_user'})
+db.review_attractions.belongsTo(db.users,{foreignKey: 'id_user'})
 db.attractions.hasMany(db.review_attractions, {foreignKey: 'id_attraction'})
 db.review_attractions.belongsTo(db.attractions, {foreignKey: 'id_attraction'})
 
 //associate wishlist tour package
 db.tour_packages.hasMany(db.wishlist_tour_packages, { foreignKey: 'id_tour_package'})
 db.wishlist_tour_packages.belongsTo(db.tour_packages, { foreignKey : 'id_tour_package'})
-db.user.hasMany(db.wishlist_tour_packages, { foreignKey : 'id_user'})
+db.users.hasMany(db.wishlist_tour_packages, { foreignKey : 'id_user'})
 db.wishlist_tour_packages.belongsTo(db.wishlist_tour_packages, { foreignKey : 'id_user' })
 
 ////associate review tour package
-db.user.hasMany(db.review_tour_packages, {foreignKey:'id_user'})
-db.review_tour_packages.belongsTo(db.user,{foreignKey: 'id_user'})
+db.users.hasMany(db.review_tour_packages, {foreignKey:'id_user'})
+db.review_tour_packages.belongsTo(db.users,{foreignKey: 'id_user'})
 db.tour_packages.hasMany(db.review_tour_packages, {foreignKey: 'id_tour_package'})
 db.review_attractions.belongsTo(db.tour_packages, {foreignKey: 'id_tour_package'})
 
@@ -100,9 +100,9 @@ db.attractions.sync({ alter: true })
 db.tour_packages.sync({ alter: true })
 db.package_categories.sync({ alter: true })
 db.cities.sync({ alter: true })
-db.wishlist_tour_packages.async({alter:true})
-db.review_attractions.async({alter:true})
-db.review_tour_packages.async({alter:true})
+db.wishlist_tour_packages.sync({alter:true})
+db.review_attractions.sync({alter:true})
+db.review_tour_packages.sync({alter:true})
 
 db.provinces.sync({ alter: true })
 db.partners.sync({ alter: true })

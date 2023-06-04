@@ -1,20 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const reviewTourPackageController = require('../controllers/reviewTourPackage');
+const reviewTourPackageController = require('../controllers/reviewTourPackageController');
 
-// Get all attractions
-router.get('/reviewtourpackage', reviewTourPackageController.getAllReviewTourPackage);
+// Get all review
+router.get('/review_tour_package', reviewTourPackageController.getAllReviewTourPackage);
 
-// Get attraction by ID
-router.get('/reviewtourpackage/:id', reviewTourPackageController.getReviewTourPackageById);
+// Get review by ID
+router.get('/review_tour_package/:id', reviewTourPackageController.getReviewTourPackageById);
 
-// Create a new attraction
-router.post('/reviewtourpackage', reviewTourPackageController.createReviewTourPackage);
+// Get review by ID tour package
+router.get('/review_tour_package/:id', reviewTourPackageController.getReviewTourPackageByTourPackageId);
 
-// Update an attraction by ID
-router.put('/reviewtourpackage/:id', reviewTourPackageController.updateReviewTourPackage);
+// Create a new review
+router.post('/review_tour_package', reviewTourPackageController.createReviewTourPackage);
 
-// Delete an attraction by ID
-router.delete('/reviewtourpackage/:id', reviewTourPackageController.deleteReviewTourPackage);
+// Update a review by ID
+router.patch('/review_tour_package/:id', reviewTourPackageController.updateReviewTourPackage);
+
+// Delete a review by ID
+router.delete('/review_tour_package/:id', reviewTourPackageController.deleteReviewTourPackage);
 
 module.exports = router;

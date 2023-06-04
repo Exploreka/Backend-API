@@ -10,28 +10,6 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       initialAutoIncrement: 1
     },
-    'id_user': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'user',
-          column: 'id_user'
-        }
-      }
-    },
-    'id_tour_package': {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      comment: "null",
-      foreignKey: {
-        references: {
-          table: 'tour_package',
-          column: 'id_tour_package'
-        }
-      }
-    },
     'rating': {
       type: DataTypes.DOUBLE,
       allowNull: true,

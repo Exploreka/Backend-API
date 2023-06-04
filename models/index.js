@@ -78,7 +78,7 @@ db.wishlist_attractions.belongsTo(db.users, { foreignKey: 'id_user' })
 
 // associate Review Controller
 db.users.hasMany(db.review_attractions, {foreignKey:'id_user'})
-db.review_attractions.belongsTo(db.users,{foreignKey: 'id_user'})
+db.review_attractions.belongsTo(db.users, {foreignKey: 'id_user'})
 db.attractions.hasMany(db.review_attractions, {foreignKey: 'id_attraction'})
 db.review_attractions.belongsTo(db.attractions, {foreignKey: 'id_attraction'})
 
@@ -86,13 +86,13 @@ db.review_attractions.belongsTo(db.attractions, {foreignKey: 'id_attraction'})
 db.tour_packages.hasMany(db.wishlist_tour_packages, { foreignKey: 'id_tour_package'})
 db.wishlist_tour_packages.belongsTo(db.tour_packages, { foreignKey : 'id_tour_package'})
 db.users.hasMany(db.wishlist_tour_packages, { foreignKey : 'id_user'})
-db.wishlist_tour_packages.belongsTo(db.wishlist_tour_packages, { foreignKey : 'id_user' })
+db.wishlist_tour_packages.belongsTo(db.users, { foreignKey : 'id_user' })
 
 ////associate review tour package
 db.users.hasMany(db.review_tour_packages, {foreignKey:'id_user'})
-db.review_tour_packages.belongsTo(db.users,{foreignKey: 'id_user'})
+db.review_tour_packages.belongsTo(db.users, {foreignKey: 'id_user'})
 db.tour_packages.hasMany(db.review_tour_packages, {foreignKey: 'id_tour_package'})
-db.review_attractions.belongsTo(db.tour_packages, {foreignKey: 'id_tour_package'})
+db.review_tour_packages.belongsTo(db.tour_packages, {foreignKey: 'id_tour_package'})
 
 // sync alter
 db.attraction_categories.sync({ alter: true })

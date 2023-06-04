@@ -16,7 +16,7 @@ const getAllTourPackages = async (req, res) => {
         }
       ]
     });
-    res.json(tour_packages);
+    return res.status(200).json({status: 'Success', message: 'Data retrieved successfully!', data: tour_packages});
   } catch (e) {
     console.log(e);
     }
@@ -64,7 +64,7 @@ const createTourPackage = async (req, res) => {
       id_partner: id_partner,
       id_attraction: id_attraction
     });
-    res.status(201).json(newTourPackage);
+    res.status(201).json({ status: 'Success', message: 'New tour package has been created!', data: newTourPackage.toJSON() });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });

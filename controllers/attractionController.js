@@ -1,6 +1,6 @@
 const db = require("../models");
 const Attraction = db.attractions;
-const AttractionCat = db.attraction_categories;
+const ReviewAttraction = db.review_attractions;
 
 // Get all attractions
 const getAllAttractions = async (req, res) => {
@@ -85,6 +85,18 @@ const createAttraction = async (req, res) => {
   }
 };
 
+async function calculateAverageRating(id_attraction) {
+  const reviews = await ReviewAttraction.findAll({ where: { id_attraction } });
+  const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+  const averageRating = totalRating / reviews.length;
+  return averageRating;
+}
+
+async function updateAverageRating(id_attraction) {
+  const averageRating = await calculateAverageRating(id_attraction);
+  await Attraction.update({ averageRating }, { where: { id: id_attraction } });
+}
+
 // Update an attraction by ID
 const updateAttraction = async (req, res) => {
   const id = parseInt(req.params.id);
@@ -139,4 +151,6 @@ module.exports = {
   createAttraction,
   updateAttraction,
   deleteAttraction,
+  calculateAverageRating,
+  updateAverageRating
 };

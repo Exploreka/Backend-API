@@ -1,5 +1,6 @@
 const db = require("../models");
 const Tour_package = db.tour_packages;
+const Review_tour_package = db.review_tour_packages;
 
 // Get all tour_packages
 const getAllTourPackages = async (req, res) => {
@@ -71,6 +72,18 @@ const createTourPackage = async (req, res) => {
   }
 };
 
+async function calculateAverageRating(id_tour_package) {
+  const reviews = await Review_tour_package.findAll({ where: { id_tour_package } });
+  const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
+  const averageRating = totalRating / reviews.length;
+  return averageRating;
+}
+
+async function updateAverageRating(id_tour_package) {
+  const averageRating = await calculateAverageRating(id_tour_package);
+  await Tour_package.update({ averageRating }, { where: { id: id_tour_package } });
+}
+
 // Update an package by ID
 const updateTourPackage = async (req, res) => {
   const id = parseInt(req.params.id);
@@ -119,4 +132,6 @@ module.exports = {
   createTourPackage,
   updateTourPackage,
   deleteTourPackage,
+  calculateAverageRating,
+  updateAverageRating
 };

@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const db = require("../models");
 const ReviewTourPackage = db.review_tour_packages;
-const Tour_package = db.tour_packages;
+const {updateAverageRating} = require('./tourPackageController')
 
 // Get all Review tour package
 const getAllReviewTourPackage = async (req, res) => {
@@ -93,18 +93,7 @@ const createReviewTourPackage = async (req, res) => {
         id_user: id_user,
         id_tour_package : id_tour_package
       });
-    
-    // // // Count average rating tour package
-    // const averageRating = await ReviewTourPackage.findAll({
-    //   attributes: [[sequelize.fn('AVG', sequelize.col('rating')), 'averageRating']],
-    //   where: { id_tour_package },
-    // });
-
-    // // // Save value of rating tour package
-    // const tour_package = await Tour_package.findByPk(id_tour_package);
-    // tour_package.rating_avg_tour_package = averageRating.averageRating;
-    // await tour_package.save();
-      
+      await updateAverageRating(id_tour_package);
     res.status(201).json({ status: 'Success', message: 'New review has been posted!', data: newReviewTourPackage.toJSON() });
     } catch (error) {
       res.status(500).json({ status: 'error', message: error.message });

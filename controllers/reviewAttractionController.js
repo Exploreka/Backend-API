@@ -1,68 +1,130 @@
+const sequelize = require('sequelize');
 const db = require("../models");
-const reviewattraction = require("../models/review_attraction");
 const ReviewAttraction = db.review_attractions;
+const Attraction = db.attractions;
 
 // Get all Review attractions
 const getAllReviewAttractions = async (req, res) => {
     try {
-        const attractions = await ReviewAttraction.findAll({
-            include: [db.attractions, db.users],
-        });
-        res.json(attractions);
+      const review_attractions = await ReviewAttraction.findAll({
+        include: [
+            {
+              model: db.users,
+              attributes: ["fullname_user"]
+            },
+            {
+              model: db.attractions,
+              attributes: ["name_attraction"],
+            }
+          ]
+      });
+      return res.status(200).json({status: 'Success', message: 'Data retrieved successfully!', data: review_attractions});
     } catch (e) {
-        console.log(e);
-    }
-};
+      console.log(e);
+      }
+  };
 
 // Get Review attractions by ID
 const getReviewAttractionById = async (req, res) => {
-    const id = parseInt(req.params.id)
+    const id = parseInt(req.params.id);
     try {
-        await ReviewAttraction.findByPk(id).then(reviewattraction => {
-            if (reviewattraction) {
-                return res.status(400).json(reviewattraction.toJSON());
-            } else {
-                console.log('Review Attraction not found')
-            }
-        }).catch(error => {
-            console.error('Error:', error);
-        });
-    } catch (e) {
-        res.status(400).json(e)
+      const review_attractions = await ReviewAttraction.findByPk(id, {
+        include: [
+          {
+            model: db.users,
+            attributes: ["fullname_user"]
+          },
+          {
+            model: db.attractions,
+            attributes: ["name_attraction"],
+          }
+        ]
+      });
+      if (review_attractions) {
+        return res.status(200).json({status: 'Success', message: 'Data retrieved successfully!', data: review_attractions.toJSON() });
+      } else {
+        console.log('Review not found');
+        res.status(404).json({ error: 'Review not found' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
     }
-}
+  };
 
-// Create a new Review attractions
-const createReviewAttraction = async (req, res) => {
-    const { rating, comment } = req.body;
+  const getReviewAttractionByAttractionId = async (req, res) => {
+    const id = parseInt(req.params.id);
     try {
-        const newReviewAttraction = await ReviewAttraction.create(
-            {
-                rating: rating,
-                comment: comment
-            }
-        );
-        res.status(201).json(newReviewAttraction);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Internal server error' });
+      const review_attractions = await ReviewAttraction.findAll({
+        include: [
+          {
+            model: db.attractions,
+            where: { id_attraction: id },
+            attributes: ["name_attraction"]
+        },
+        {
+            model: db.users,
+            attributes: ["fullname_user"]
+        }
+        ],
+      });
+      if (review_attractions.length > 0) {
+        return res.status(200).json({
+          status: 'Success',
+          message: 'Data retrieved successfully!',
+          data: review_attractions.map((review_attraction) => review_attraction.toJSON()),
+        });
+      } else {
+        console.log('Review attraction not found');
+        res.status(404).json({ error: 'Review attraction not found' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
     }
-};
+  };
+
+const createReviewAttraction = async (req, res) => {
+    const { rating, comment, id_user, id_attraction } = req.body;
+    try {
+      const newReviewAttraction = await ReviewAttraction.create({
+        rating: rating,
+        comment: comment,
+        id_user: id_user,
+        id_attraction: id_attraction
+      });
+    
+    // // Count average rating attraction
+    // const averageRating = await ReviewAttraction.findAll({
+    //   attributes: [[sequelize.fn('AVG', sequelize.col('rating')), 'averageRating']],
+    //   where: { id_attraction },
+    // });
+
+    // // Save value of rating attraction
+    // const attraction = await Attraction.findByPk(id_attraction);
+    // attraction.rating_avg_attraction = averageRating.averageRating;
+    // await attraction.save();
+      
+    res.status(201).json({ status: 'Success', message: 'New review has been posted!', data: newReviewAttraction.toJSON() });
+    } catch (error) {
+      res.status(500).json({ status: 'error', message: error.message });
+    }
+  }
 
 // Update an attraction by ID
 const updateReviewAttraction = async (req, res) => {
-    const { rating, comment } = req.body;
     const id = parseInt(req.params.id);
+    const { rating, comment } = req.body;
     try {
-        const reviewattraction = await ReviewAttraction.findByPk(id);
-        if (reviewattraction) {
-            const updatedReviewAttraction = await reviewattraction.update({
+        const review_attraction = await ReviewAttraction.findByPk(id);
+        if (review_attraction) {
+            const updatedReviewAttraction = await review_attraction.update({
                 rating: rating,
                 comment: comment
             });
-            return res.status(200).json({ message: 'Review attractions updated successfully', attraction: updatedReviewAttraction });
+            return res.status(200).json({ status: 'Success', message: 'Review attraction updated successfully', data: updatedReviewAttraction.toJSON() });
         } else {
-            return res.status(404).json({ message: 'Review attractions not found' });
+            return res.status(404).json({ message: 'Review attraction not found' });
         }
     } catch (error) {
         console.error('Error:', error);
@@ -74,12 +136,12 @@ const updateReviewAttraction = async (req, res) => {
 const deleteReviewAttraction = async (req, res) => {
     const id = parseInt(req.params.id);
     try {
-        const reviewattraction = await ReviewAttraction.findByPk(id);
-        if (reviewattraction) {
-            await reviewattraction.destroy();
-            return res.status(200).json({ message: 'Wishlist Attraction deleted successfully' });
+        const review_attraction = await ReviewAttraction.findByPk(id);
+        if (review_attraction) {
+            await review_attraction.destroy();
+            return res.status(200).json({ status: 'Success', message: 'Review deleted successfully!', data: review_attraction.toJSON() });
         } else {
-            return res.status(404).json({ message: 'Wishlist Attraction not found' });
+            return res.status(404).json({ message: 'Review Attraction not found' });
         }
     } catch (error) {
         console.error('Error:', error);
@@ -87,10 +149,10 @@ const deleteReviewAttraction = async (req, res) => {
     }
 }
 
-
 module.exports = {
     getAllReviewAttractions,
     getReviewAttractionById,
+    getReviewAttractionByAttractionId,
     createReviewAttraction,
     updateReviewAttraction,
     deleteReviewAttraction,

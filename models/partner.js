@@ -35,12 +35,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       comment: "null"
     },
-    'address_partner': {
-      type: DataTypes.STRING,
+    'desc_partner': {
+      type: DataTypes.STRING(2500),
       allowNull: true,
       comment: "null"
     },
-    'desc_partner': {
+    'address_partner': {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "null"

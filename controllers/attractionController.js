@@ -62,8 +62,6 @@ const getAttractionsByCategoryId = async (req, res) => {
   }
 };
 
-
-
 // Create a new attraction
 const createAttraction = async (req, res) => {
   const {name, price, desc, photo, address, coordinate, open_hour, close_hour, id_city, id_attraction_cat} = req.body;

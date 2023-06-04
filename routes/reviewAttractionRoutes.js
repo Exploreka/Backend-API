@@ -2,19 +2,22 @@ const express = require('express');
 const router = express.Router();
 const reviewAttractionController = require('../controllers/reviewAttractionController');
 
-// Get all attractions
-router.get('/reviewattraction', reviewAttractionController.getAllReviewAttractions);
+// Get all review
+router.get('/review_attraction', reviewAttractionController.getAllReviewAttractions);
 
-// Get attraction by ID
-router.get('/reviewattraction/:id', reviewAttractionController.getReviewAttractionById);
+// Get review by ID review
+router.get('/review_attraction/:id', reviewAttractionController.getReviewAttractionById);
 
-// Create a new attraction
-router.post('/reviewattraction', reviewAttractionController.createReviewAttraction);
+// Get review by ID attraction
+router.get('/review_attraction/:id', reviewAttractionController.getReviewAttractionByAttractionId);
 
-// Update an attraction by ID
-router.put('/reviewattraction/:id', reviewAttractionController.updateReviewAttraction);
+// Create a new review
+router.post('/review_attraction', reviewAttractionController.createReviewAttraction);
 
-// Delete an attraction by ID
-router.delete('/reviewattraction/:id', reviewAttractionController.deleteReviewAttraction);
+// Update a review by ID
+router.patch('/review_attraction/:id', reviewAttractionController.updateReviewAttraction);
+
+// Delete a review by ID
+router.delete('/review_attraction/:id', reviewAttractionController.deleteReviewAttraction);
 
 module.exports = router;

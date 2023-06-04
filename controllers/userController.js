@@ -105,17 +105,18 @@ const Login = async(req, res) => {
 
 const Logout = async (req, res) => {
     try {
-      const refreshToken = req.cookies.refresh_token;
-
-      if (!refreshToken) res.json({message: 'refresh token not found'});
+      const refreshToken = req.cookies.refreshToken;
+  
+      if (!refreshToken) return res.json({ message: 'refresh token not found' });
   
       const user = await User.findOne({
         where: {
           refresh_token: refreshToken,
         },
       });
-      if (!user[0]) res.json({message: 'user not found'});;
-      const id = user[0].id_user;
+      if (!user) return res.json({ message: 'user not found' });
+  
+      const id = user.id_user;
       await User.update(
         { refresh_token: null },
         {
@@ -131,7 +132,8 @@ const Logout = async (req, res) => {
       console.log(error);
       return res.status(500).json({ message: 'Failed to logout' });
     }
-};
+  };
+  
 
 const refreshToken = async(req, res) => {
     try {

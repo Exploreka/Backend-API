@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const tourPackage = require('../controllers/tourPackage');
+const tourPackage = require('../controllers/tourPackageController');
 
-// Get all tourPackages
+// Get all tour package
 router.get('/tour_package', tourPackage.getAllTourPackages);
 
-// Get tourPackage by ID
+// Get tour package by ID
 router.get('/tour_package/:id', tourPackage.getTourPackageById);
 
-// Create a new tourPackage
+// Create a new tour package
 router.post('/tour_package', tourPackage.createTourPackage);
 
-// Update an tourPackage by ID
-router.put('/tour_package/:id', tourPackage.updateTourPackage);
+// Update an tour package by ID
+router.patch('/tour_package/:id', tourPackage.updateTourPackage);
 
-// Delete an tourPackage by ID
+// Delete an tour package by ID
 router.delete('/tour_package/:id', tourPackage.deleteTourPackage);
 
 module.exports = router;

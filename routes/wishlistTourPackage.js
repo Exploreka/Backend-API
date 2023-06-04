@@ -1,20 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const wishlistTourPackageController = require('../controllers/whislistTourPackage');
+const wishlistTourPackageController = require('../controllers/wishlistTourPackageController');
 
-// Get all attractions
-router.get('/wishlisttourpackage', wishlistTourPackageController.getAllWishlistTourPackage);
+// Get wishlist by ID user
+router.get('/wishlist_tour_package/:id', wishlistTourPackageController.getWishlistTourPackageByUserId);
 
-// Get attraction by ID
-router.get('/wishlisttourpackage/:id', wishlistTourPackageController.getWishlistTourPackageById);
+// Create a new wishlist
+router.post('/wishlist_tour_package', wishlistTourPackageController.createWishlistTourPackage);
 
-// Create a new attraction
-router.post('/wishlisttourpackage', wishlistTourPackageController.createWishlistTourPackage);
-
-// Update an attraction by ID
-router.put('/wishlisttourpackage/:id', wishlistTourPackageController.updateWishlistTourPackage);
-
-// Delete an attraction by ID
-router.delete('/wishlisttourpackage/:id', wishlistTourPackageController.deleteWishlistTourPackage);
+// Delete an wishlist by ID
+router.delete('/wishlist_tour_package/:id', wishlistTourPackageController.deleteWishlistTourPackage);
 
 module.exports = router;

@@ -106,14 +106,15 @@ const Login = async(req, res) => {
 const Logout = async (req, res) => {
     try {
       const refreshToken = req.cookies.refresh_token;
-      if (!refreshToken) return res.sendStatus(204);
+
+      if (!refreshToken) res.json({message: 'refresh token not found'});
   
       const user = await User.findOne({
         where: {
           refresh_token: refreshToken,
         },
       });
-      if (!user[0]) return res.sendStatus(204);
+      if (!user[0]) res.json({message: 'user not found'});;
       const id = user[0].id_user;
       await User.update(
         { refresh_token: null },
@@ -124,14 +125,13 @@ const Logout = async (req, res) => {
         }
       );
       req.session.destroy();
-      res.clearCookie('refreshToken');
-      return res.sendStatus(200).json({ message: 'Logout success!' });
+      res.clearCookie('refresh_token');
+      return res.status(200).json({ message: 'Logout success!' });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: 'Failed to logout' });
     }
-  };
-  
+};
 
 const refreshToken = async(req, res) => {
     try {
@@ -221,7 +221,7 @@ const failed = async (req, res) => {
     try {
         const user = await User.findByPk(id);
         if (user) {
-            await User.destroy({
+            await User.delete({
                 where: {
                     id_user: id
                 }

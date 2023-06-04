@@ -1,6 +1,4 @@
-//importing modules
 const express = require('express')
-
 const userController = require('../controllers/userController');
 const { verifyToken } = require('../middlewares/userAuth')
 

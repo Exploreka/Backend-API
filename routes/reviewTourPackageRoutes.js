@@ -5,9 +5,6 @@ const reviewTourPackageController = require('../controllers/reviewTourPackageCon
 // Get all review
 router.get('/review_tour_package', reviewTourPackageController.getAllReviewTourPackage);
 
-// Get review by ID
-router.get('/review_tour_package/:id', reviewTourPackageController.getReviewTourPackageById);
-
 // Get review by ID tour package
 router.get('/review_tour_package/:id', reviewTourPackageController.getReviewTourPackageByTourPackageId);
 

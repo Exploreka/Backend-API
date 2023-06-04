@@ -5,9 +5,6 @@ const reviewAttractionController = require('../controllers/reviewAttractionContr
 // Get all review
 router.get('/review_attraction', reviewAttractionController.getAllReviewAttractions);
 
-// Get review by ID review
-router.get('/review_attraction/:id', reviewAttractionController.getReviewAttractionById);
-
 // Get review by ID attraction
 router.get('/review_attraction/:id', reviewAttractionController.getReviewAttractionByAttractionId);
 

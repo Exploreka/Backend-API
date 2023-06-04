@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         initialAutoIncrement: 1
       },
       'rating': {
-        type: DataTypes.DOUBLE,
+        type: DataTypes.FLOAT,
         allowNull: true,
         comment: "null",
       },

@@ -30,6 +30,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       comment: "null"
     },
+    'resetTokenExpiresAt': {
+      type: DataTypes.DATE,
+      allowNull: true,
+      comment: "null"
+    },
     'fullname_user': {
       type: DataTypes.STRING,
       allowNull: true,

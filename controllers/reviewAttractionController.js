@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const db = require("../models");
 const ReviewAttraction = db.review_attractions;
-const Attraction = db.attractions;
+const {updateAverageRating} = require('./attractionController')
 
 // Get all Review attractions
 const getAllReviewAttractions = async (req, res) => {
@@ -93,18 +93,7 @@ const createReviewAttraction = async (req, res) => {
         id_user: id_user,
         id_attraction: id_attraction
       });
-    
-    // // Count average rating attraction
-    // const averageRating = await ReviewAttraction.findAll({
-    //   attributes: [[sequelize.fn('AVG', sequelize.col('rating')), 'averageRating']],
-    //   where: { id_attraction },
-    // });
-
-    // // Save value of rating attraction
-    // const attraction = await Attraction.findByPk(id_attraction);
-    // attraction.rating_avg_attraction = averageRating.averageRating;
-    // await attraction.save();
-      
+      await updateAverageRating(id_attraction);
     res.status(201).json({ status: 'Success', message: 'New review has been posted!', data: newReviewAttraction.toJSON() });
     } catch (error) {
       res.status(500).json({ status: 'error', message: error.message });

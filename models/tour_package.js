@@ -31,7 +31,7 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null"
     },
     'rating_avg_tour_package': {
-      type: DataTypes.DOUBLE,
+      type: DataTypes.FLOAT,
       allowNull: true,
       comment: "null"
     },

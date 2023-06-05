@@ -16,6 +16,7 @@ const wishlistAttracttionRoutes = require ('./routes/wishlistAttractionRoutes')
 const wishlistTourPackageRoutes = require ('./routes/wishlistTourPackageRoutes')
 const reviewAttractionRoutes = require ('./routes/reviewAttractionRoutes')
 const reviewTourPackageRoutes = require ('./routes/reviewTourPackageRoutes')
+const blogRoutes = require ('./routes/blogRoutes')
 const passport = require("passport");
 
 //setting up your port
@@ -49,6 +50,7 @@ app.use(wishlistAttracttionRoutes)
 app.use(wishlistTourPackageRoutes)
 app.use(reviewAttractionRoutes)
 app.use(reviewTourPackageRoutes)
+app.use(blogRoutes)
 
 //listening to server connection
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))

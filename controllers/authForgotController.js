@@ -29,8 +29,8 @@ const ForgotPassword = async (req, res) => {
         }
 
         // Generate OTP dan mengatur tanggal kedaluwarsa
-        const token = Math.floor(100000 + Math.random() * 900000); // Menggunakan OTP dengan 6 digit
-        const expirationTime = new Date(Date.now() + 3 * 60 * 1000); // OTP berlaku selama 10 menit
+        const token = Math.floor(10000 + Math.random() * 90000); // Menggunakan OTP dengan 5 digit
+        const expirationTime = new Date(Date.now() + 4 * 60 * 1000); // OTP berlaku selama 10 menit
 
         // Update informasi reset token pada user
         await user.update({

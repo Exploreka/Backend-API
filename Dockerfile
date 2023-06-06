@@ -9,6 +9,6 @@ RUN npm install
 # Bundle app source
 COPY . .
 # Binding port
-EXPOSE $PORT
+EXPOSE 8000
 # Command to run our app
 CMD [ "node", "server.js"]

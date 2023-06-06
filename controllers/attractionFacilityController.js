@@ -1,26 +1,36 @@
 const db = require("../models");
-const Facility = db.facilities;
+const Attraction = db.attractions
+const Facility = db.facilities
+const Relation_Facility_Attraction = db.relation_facility_attractions
 
-// Get attraction facility by ID
-const getAttractionFacilitiesById = async (req, res) => {
+// Get all attractions
+const getAllFacility = async (req, res) => {
   try {
-    const { id_attraction } = req.params;
+    const facility = await Facility.findAll();
+    return res.status(200).json({status: 'Success', message: 'Data retrieved successfully!', data: facility});
+  } catch (e) {
+    console.log(e);
+    }
+};
 
-    // searching all data relation by id_attraction
-    const relations = await Relation_Attraction_Facility.findAll({
-      where: { id_attraction },
-      include: [Facility],
+// Get tour package category by ID
+const getFacilityByIdAttraction = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const relations = await Relation_Facility_Attraction.findAll({
+      where: { id_attraction: id },
+      include: [db.facilities],
     });
 
-    // showing data facility from relation model
-    const facilities = relations.map((relation) => relation.Facility);
-    res.status(200).json({ facilities });
+    res.json(relations);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
 module.exports = {
-    getAttractionFacilitiesById,
+  getAllFacility,
+  getFacilityByIdAttraction
 }

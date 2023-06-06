@@ -116,9 +116,13 @@ db.wishlist_attractions.sync({ alter: true })
 
 db.relation_tour_package_cats.belongsTo(db.tour_packages, { foreignKey: 'id_tour_package' })
 db.tour_packages.belongsTo(db.relation_tour_package_cats, { foreignKey: 'id_tour_package' })
-
 db.relation_tour_package_cats.belongsTo(db.tour_package_categories, { foreignKey: 'id_package_cat' })
 db.tour_package_categories.belongsTo(db.relation_tour_package_cats, { foreignKey: 'id_package_cat' })
+
+db.relation_facility_attractions.belongsTo(db.facilities, { foreignKey: 'id_facility' })
+db.facilities.belongsTo(db.relation_facility_attractions, { foreignKey: 'id_facility' })
+db.relation_facility_attractions.belongsTo(db.attractions, { foreignKey: 'id_attraction' })
+db.attractions.belongsTo(db.relation_facility_attractions, { foreignKey: 'id_attraction' })
 
 
 

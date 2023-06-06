@@ -54,7 +54,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "null"
-    }
+    },
+    'otp': {
+      type: DataTypes.STRING,
+      allowNull: true,
+      comment: "null"
+    },
+    "otpVerified": {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   }, {
     tableName: 'user',
     timestamps: true,

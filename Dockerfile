@@ -1,14 +1,12 @@
-# Let's get the base image of node14
-FROM node:14
-# Create app directory
-WORKDIR /usr/src/app
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-# Install app dependencies
-RUN npm install
-# Bundle app source
+FROM node:18-alpine
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install --production
+
 COPY . .
-# Binding port
-EXPOSE 8000
-# Command to run our app
-CMD [ "node", "server.js"]
+
+CMD ["node", "server.js"]

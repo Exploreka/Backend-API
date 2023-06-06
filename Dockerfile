@@ -1,11 +1,14 @@
-# Build dependencies
-FROM node:17-alpine as dependencies
+# syntax=docker/dockerfile:1
+
+FROM node:18-alpine
+ENV NODE_ENV=production
+
 WORKDIR /app
-COPY package.json .
-RUN npm i
-COPY . . 
-# Build production image
-FROM dependencies as builder
-RUN npm run build
-EXPOSE 3000
-CMD npm run start
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install --production
+
+COPY . .
+
+CMD ["node", "server.js"]

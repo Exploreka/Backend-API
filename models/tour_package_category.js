@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  const Package_category = sequelize.define('package_category', {
+  const Tour_package_category = sequelize.define('tour_package_category', {
     'id_package_cat': {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -16,9 +16,9 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null"
     }
   }, {
-    tableName: 'package_category',
-    timestamps: true,
+    tableName: 'tour_package_category',
+    timestamps: false,
     freezeTableName: true
   });
-  return Package_category
+  return Tour_package_category
 };

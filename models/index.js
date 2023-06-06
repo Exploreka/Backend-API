@@ -27,7 +27,7 @@ db.users = require('./user') (sequelize, DataTypes)
 db.cities = require('./city') (sequelize, DataTypes)
 db.facilities = require('./facility') (sequelize, DataTypes)
 db.orders = require('./order') (sequelize, DataTypes)
-db.package_categories = require('./package_category') (sequelize, DataTypes)
+db.tour_package_categories = require('./tour_package_category') (sequelize, DataTypes)
 db.partners = require('./partner') (sequelize, DataTypes)
 db.payment_methods = require('./payment_method') (sequelize, DataTypes)
 db.provinces = require('./province') (sequelize, DataTypes)
@@ -60,15 +60,18 @@ db.facilities.belongsToMany(db.attractions, {
     through: "relation_facility_attraction",
     as: "attractions",
     foreignKey: "id_facility"})
-db.tour_packages.belongsToMany(db.package_categories, {
-    through: "relation_tour_package",
-    as: "package_categories",
+db.tour_packages.belongsToMany(db.tour_package_categories, {
+    through: "relation_tour_package_cat",
+    as: "tour_package_categories",
     foreignKey: "id_tour_package"
 })
-db.package_categories.belongsToMany(db.tour_packages, {
-    through: "relation_tour_package",
+db.tour_package_categories.belongsToMany(db.tour_packages, {
+    through: "relation_tour_package_cat",
     as: "tour_packages",
     foreignKey: "id_package_cat"})
+
+// db.tour_packages.belongsToMany(db.tour_package_categories, { through: db.relation_tour_package_cats });
+// db.tour_package_categories.belongsToMany(db.tour_packages, { through: db.relation_tour_package_cats  });
 
 // associate wishlist attraction
 db.attractions.hasMany(db.wishlist_attractions, { foreignKey: 'id_attraction' })
@@ -98,7 +101,7 @@ db.review_tour_packages.belongsTo(db.tour_packages, {foreignKey: 'id_tour_packag
 db.attraction_categories.sync({ alter: true })
 db.attractions.sync({ alter: true })
 db.tour_packages.sync({ alter: true })
-db.package_categories.sync({ alter: true })
+db.tour_package_categories.sync({ alter: true })
 db.cities.sync({ alter: true })
 db.wishlist_tour_packages.sync({alter:true})
 db.review_attractions.sync({alter:true})
@@ -110,6 +113,14 @@ db.relation_facility_attractions.sync({ alter: true })
 db.relation_tour_package_cats.sync({ alter: true })
 db.users.sync({ alter: true })
 db.wishlist_attractions.sync({ alter: true })
+
+db.relation_tour_package_cats.belongsTo(db.tour_packages, { foreignKey: 'id_tour_package' })
+db.tour_packages.belongsTo(db.relation_tour_package_cats, { foreignKey: 'id_tour_package' })
+
+db.relation_tour_package_cats.belongsTo(db.tour_package_categories, { foreignKey: 'id_package_cat' })
+db.tour_package_categories.belongsTo(db.relation_tour_package_cats, { foreignKey: 'id_package_cat' })
+
+
 
 
 //exporting the module

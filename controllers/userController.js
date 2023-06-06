@@ -5,9 +5,21 @@ const jwt = require("jsonwebtoken");
 const { validationResult } = require('express-validator')
 const passport = require("passport");
 const user = require("../models/user");
+const nodemailer = require("nodemailer");
 
 // Assigning users to the variable User
 const User = db.users;
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.EMAIL, // Ganti dengan email pengirim
+        pass: process.env.PASSWORD, // Ganti dengan password email pengirim
+    },
+});
 
 const getUsers = async(req, res) => {
     try {
@@ -43,6 +55,7 @@ const Register = async (req, res) => {
     }
 
     try {
+      const otp = Math.random().toString().slice(-5);
       // Check if the email already exists in the database
       const existingUser = await User.findOne({ where: { email_user: email } });
       if (existingUser) {
@@ -56,9 +69,20 @@ const Register = async (req, res) => {
         const user = await User.create({
           fullname_user: fullname,
           email_user: email,
-          password_user: hashPassword
+          password_user: hashPassword,
+          otp: otp
         });
-        res.status(201).json({ status: 'Success', message: 'Your account has been created!', data: user.toJSON() });
+
+          const mailOptions = {
+              from: process.env.MAIL_USERNAME,
+              to: email,
+              subject: 'Verification Code',
+              text: `Your verification code is: ${otp}`,
+          };
+
+          await transporter.sendMail(mailOptions);
+
+        res.status(201).json({ status: 'Success', message: 'Your account has been created!, Please check your email for the verification code', data: user.toJSON() });
       } else {
         return res.status(400).json({ msg: "Form cannot be null" });
       }
@@ -67,6 +91,41 @@ const Register = async (req, res) => {
       res.status(500).json({ msg: "Server error" });
     }
   };
+
+const verivyOTP = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        // Find the user with the provided email
+        const user = await User.findOne({ where: { email_user: email } });
+
+        if (!user) {
+            return res.status(404).json({
+                error: 'User not found.',
+            });
+        }
+
+        // Verify the OTP
+        if (user.otp === otp) {
+            // Update the user's otpVerified status
+            user.otpVerified = true;
+            await user.save();
+
+            return res.status(200).json({
+                message: 'OTP verified successfully. You can now access your account.',
+            });
+        }
+
+        return res.status(400).json({
+            error: 'Invalid OTP.',
+        });
+    } catch (error) {
+        console.error('Error verifying OTP:', error);
+        res.status(500).json({
+            error: 'An error occurred while verifying OTP.',
+        });
+    }
+}
 
 
 const Login = async(req, res) => {
@@ -106,16 +165,16 @@ const Login = async(req, res) => {
 const Logout = async (req, res) => {
     try {
       const refreshToken = req.cookies.refreshToken;
-  
+
       if (!refreshToken) return res.json({ message: 'refresh token not found' });
-  
+
       const user = await User.findOne({
         where: {
           refresh_token: refreshToken,
         },
       });
       if (!user) return res.json({ message: 'user not found' });
-  
+
       const id = user.id_user;
       await User.update(
         { refresh_token: null },
@@ -133,7 +192,7 @@ const Logout = async (req, res) => {
       return res.status(500).json({ message: 'Failed to logout' });
     }
   };
-  
+
 
 const refreshToken = async(req, res) => {
     try {
@@ -251,5 +310,6 @@ module.exports = {
     failed,
     protected,
     authGoogle,
-    callbackGoogle
+    callbackGoogle,
+    verivyOTP
 };

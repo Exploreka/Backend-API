@@ -1,5 +1,5 @@
 # Let's get the base image of node14
-FROM node:latest
+FROM node
 # Create app directory
 WORKDIR /app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied

@@ -21,9 +21,9 @@ const forgetPasswordRoutes = require ('./routes/forgetPasswordRoutes')
 const passport = require("passport");
 
 //setting up your port
-//const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8080
 
-const PORT = 5000
+// const PORT = 5000
 
 //assigning the variable app to express
 const app = express()

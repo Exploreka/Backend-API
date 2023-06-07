@@ -1,0 +1,28 @@
+runtime: nodejs20
+env: standard
+instance_class: F1
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: automatic
+  min_pending_latency: automatic
+  max_pending_latency: automatic
+env_variables:
+  ACCESS_TOKEN_SECRET: QWERQERQFSDGSDFGSDFGSDFGSDFGSD
+  REFRESH_TOKEN_SECRET: SFGSGWGERGERGVDFBVXCVBDFBGDFBGDFBG
+
+  DATABASE_USER: postgres
+  DATABASE_HOST: localhost
+  DATABASE_NAME: exploreka.id
+  DATABASE_PASSWORD: sendhyrama123
+  DATABASE_PORT: 5432
+  DATABASE_LINK: postgres://postgres:sendhyrama123@localhost:5432/exploreka.id
+
+  PORT: 5000
+
+  GOOGLE_CLIENT_ID: 580806147227-r3f9dgbhs5rqu5gd91s3pfpu90j8huvr.apps.googleusercontent.com
+
+  BLOG_API_KEY: AIzaSyCwvY8L9xVGCmwB2u8w2-CSC_Z5Vzq9O1Y
+  BLOG_ID: 2551649891937024471
+
+  EMAIL: exploreka.id@gmail.com
+  PASSWORD: xvgswsnxydejyicf

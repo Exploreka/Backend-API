@@ -7,3 +7,6 @@ dispatch:
     
   - url: 'www.exploreka.net/*'
     service: default
+    
+  - url: 'capstone-exploreka-c23-bs357.et.r.appspot.com/*'
+    service: default

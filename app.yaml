@@ -1,9 +1,9 @@
 runtime: nodejs20
 service: api
-env: standard
-instance_class: F1
-automatic_scaling:
-  min_idle_instances: 1
-  max_idle_instances: 5
-  min_pending_latency: automatic
-  max_pending_latency: automatic
+# env: standard
+# instance_class: F1
+# automatic_scaling:
+#   min_idle_instances: 1
+#   max_idle_instances: 5
+#   min_pending_latency: automatic
+#   max_pending_latency: automatic

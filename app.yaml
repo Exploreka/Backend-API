@@ -1,5 +1,6 @@
 runtime: nodejs20
 service: api
+entrypoint: npm start
 # env: standard
 # instance_class: F1
 # automatic_scaling:

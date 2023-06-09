@@ -6,6 +6,9 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 //Assigning db.users to User variable
 const User = db.users;
+const dotenv = require("dotenv")
+
+dotenv.config
 
 //Konfigurasi Passport
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;

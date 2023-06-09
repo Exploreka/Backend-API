@@ -16,6 +16,6 @@ steps:
    - 'gcr.io/$PROJECT_ID/exploreka:$COMMIT_SHA'
    - '--allow-unauthenticated'
    - '--region'
-   - 'asia-southeast2'
+   - 'asia-southeast1'
  images:
  - 'gcr.io/$PROJECT_ID/exploreka:$COMMIT_SHA'

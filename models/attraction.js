@@ -15,22 +15,17 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       comment: "null"
     },
+    'desc_attraction': {
+      type: DataTypes.STRING(10000),
+      allowNull: true,
+      comment: "null"
+    },
     'price_attraction': {
       type: DataTypes.BIGINT,
       allowNull: true,
       comment: "null"
     },
-    'desc_attraction': {
-      type: DataTypes.STRING(2500),
-      allowNull: true,
-      comment: "null"
-    },
     'photo_attraction': {
-      type: DataTypes.STRING,
-      allowNull: true,
-      comment: "null"
-    },
-    'address_attraction': {
       type: DataTypes.STRING,
       allowNull: true,
       comment: "null"

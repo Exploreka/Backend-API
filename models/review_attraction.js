@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     }, {
       tableName: 'review_attraction',
-      timestamps: true,
+      timestamps: false,
       freezeTableName: true
     });
     return Review_Attraction

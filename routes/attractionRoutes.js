@@ -9,7 +9,7 @@ router.get('/attractions', attractionController.getAllAttractions);
 router.get('/attractions/:id', attractionController.getAttractionById);
 
 // Get attraction by ID Category
-router.get('/attractions/cat/:id', attractionController.getAttractionById);
+router.get('/attractions/cat/:id', attractionController.getAttractionsByCategoryId);
 
 // Create a new attraction
 router.post('/attractions', attractionController.createAttraction);

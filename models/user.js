@@ -8,7 +8,8 @@ module.exports = function(sequelize, DataTypes) {
       comment: "null",
       primaryKey: true,
       autoIncrement: true,
-      initialAutoIncrement: 1
+      unique: true,
+      defaultValue: 401
     },
     'email_user': {
       type: DataTypes.STRING,
@@ -66,7 +67,7 @@ module.exports = function(sequelize, DataTypes) {
     },
   }, {
     tableName: 'user',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
   });
   return User

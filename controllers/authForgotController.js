@@ -30,7 +30,7 @@ const ForgotPassword = async (req, res) => {
 
         // Generate OTP dan mengatur tanggal kedaluwarsa
         const token = Math.floor(10000 + Math.random() * 90000); // Menggunakan OTP dengan 5 digit
-        const expirationTime = new Date(Date.now() + 4 * 60 * 1000); // OTP berlaku selama 10 menit
+        const expirationTime = new Date(Date.now() + 4 * 60 * 1000); // OTP berlaku selama 4 menit
 
         // Update informasi reset token pada user
         await user.update({
@@ -43,10 +43,10 @@ const ForgotPassword = async (req, res) => {
             from: process.env.EMAIL, // Ganti dengan email pengirim
             to: email,
             subject: 'Reset Password',
-            text: `Your OTP Code: ${token}\n\nNote: please enter the OTP code immediately as it will expire within 3 minutes.`,
+            text: `Your OTP Code: ${token}\n\nNote: please enter the OTP code immediately as it will expire within 4 minutes.`,
         });        
 
-        return res.status(200).json({ message: 'Email sent successfully' });
+        return res.status(200).json({ message: 'OTP code sent successfully by email' });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Internal server error' });

@@ -55,13 +55,24 @@ const Register = async (req, res) => {
     }
 
     try {
-      const otp = Math.random().toString().slice(-5);
-      // Check if the email already exists in the database
-      const existingUser = await User.findOne({ where: { email_user: email } });
-      if (existingUser) {
+        // Check if the email already exists in the database
+        const existingUser = await User.findOne({ where: { email_user: email } });
+        if (existingUser) {
         return res.status(400).json({ msg: "Email already exists" });
       }
+      
+      const otp = Math.random().toString().slice(-5);
+      const expirationTime = new Date(Date.now() + 4 * 60 * 1000); // OTP berlaku selama 4 menit
+      
+      const mailOptions = {
+          from: process.env.MAIL_USERNAME,
+          to: email,
+          subject: 'Verification Code',
+          text: `Your verification code is: ${otp}\n\nNote: please enter the OTP code immediately as it will expire within 4 minutes.`,
+        };
 
+      await transporter.sendMail(mailOptions);
+      
       const salt = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(password, salt);
 
@@ -73,14 +84,6 @@ const Register = async (req, res) => {
           otp: otp
         });
 
-          const mailOptions = {
-              from: process.env.MAIL_USERNAME,
-              to: email,
-              subject: 'Verification Code',
-              text: `Your verification code is: ${otp}`,
-          };
-
-          await transporter.sendMail(mailOptions);
 
         res.status(201).json({ status: 'Success', message: 'Your account has been created!, Please check your email for the verification code', data: user.toJSON() });
       } else {
@@ -94,14 +97,14 @@ const Register = async (req, res) => {
 
 const verivyOTP = async (req, res) => {
     try {
-        const { email, otp } = req.body;
+        const { otp } = req.body;
 
         // Find the user with the provided email
-        const user = await User.findOne({ where: { email_user: email } });
+        const user = await User.findOne({ where: { otp: otp } });
 
         if (!user) {
             return res.status(404).json({
-                error: 'User not found.',
+                error: 'OTP invalid',
             });
         }
 

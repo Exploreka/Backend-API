@@ -26,6 +26,11 @@ const PORT = process.env.PORT || 8000
 //assigning the variable app to express
 const app = express()
 
+//synchronizing the database and forcing it to false so we dont lose data
+db.sequelize.sync({ force: false }).then(() => {
+    console.log("db has been re sync")
+})
+
 app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,10 +41,6 @@ app.use(cors({ credentials:true, origin:'http://localhost:3000' }));
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-//synchronizing the database and forcing it to false so we dont lose data
-db.sequelize.sync({ force: false }).then(() => {
-    console.log("db has been re sync")
-})
 
 //routes for the user API
 app.use(userRoutes)
@@ -54,6 +55,16 @@ app.use(reviewTourPackageRoutes)
 app.use(blogRoutes)
 app.use(forgetPasswordRoutes)
 app.use(tourPackageCatRoutes)
+
+// Index route handler
+app.get('/', (req, res) => {
+    const message = 'Hi there, welcome to the Exploreka API! 👋';
+    console.log('Index route accessed');
+    res.send(`
+        <h1>${message}</h1>
+        <h2>Kindly refer our API Documentation <a href="https://documenter.getpostman.com/view/25237784/2s93sW7a5e">here</a></h2>
+    `);
+});
 
 //listening to server connection
 app.listen(PORT, () => console.log(`Server is connected on ${PORT}`))

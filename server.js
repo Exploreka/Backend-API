@@ -62,7 +62,7 @@ app.get('/', (req, res) => {
     console.log('Index route accessed');
     res.send(`
         <h1>${message}</h1>
-        <h2>Kindly refer our API Documentation <a href="https://documenter.getpostman.com/view/25237784/2s93sW7a5e">here</a></h2>
+        <h2>Kindly refer to our API Documentation <a href="https://documenter.getpostman.com/view/25237784/2s93sW7a5e">here</a></h2>
     `);
 });
 

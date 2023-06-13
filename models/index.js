@@ -51,6 +51,7 @@ db.review_tour_packages = require('./review_tour_package') (sequelize, DataTypes
 db.tour_packages = require('./tour_package') (sequelize, DataTypes)
 db.wishlist_attractions = require('./wishlist_attraction') (sequelize, DataTypes)
 db.wishlist_tour_packages = require('./wishlist_tour_package') (sequelize, DataTypes)
+db.blog_posts = require('./blog_post') (sequelize, DataTypes)
 
 // associate attraction
 db.attraction_categories.hasMany(db.attractions, { foreignKey: 'id_attraction_cat' })

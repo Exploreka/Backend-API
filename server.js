@@ -17,6 +17,7 @@ const wishlistTourPackageRoutes = require ('./routes/wishlistTourPackageRoutes')
 const reviewAttractionRoutes = require ('./routes/reviewAttractionRoutes')
 const reviewTourPackageRoutes = require ('./routes/reviewTourPackageRoutes')
 const blogRoutes = require ('./routes/blogRoutes')
+const blogPostRoutes = require ('./routes/blogPostRoutes')
 const forgetPasswordRoutes = require ('./routes/forgetPasswordRoutes')
 const passport = require("passport");
 
@@ -57,6 +58,7 @@ app.use(reviewTourPackageRoutes)
 app.use(blogRoutes)
 app.use(forgetPasswordRoutes)
 app.use(tourPackageCatRoutes)
+app.use(blogPostRoutes)
 
 // Index route handler
 app.get('/', (req, res) => {

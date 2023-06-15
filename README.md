@@ -5,6 +5,6 @@
 ## How to use?
 
 1. Clone repo to local
-2. create `.env`and then fill with your requiremennt 
+2. fill file `.env` with your requiremennt 
 3. open `CMD` then input `npm install` -> enter
 4. then input `npm start` -> enter 

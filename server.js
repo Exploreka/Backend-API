@@ -16,7 +16,6 @@ const wishlistAttracttionRoutes = require ('./routes/wishlistAttractionRoutes')
 const wishlistTourPackageRoutes = require ('./routes/wishlistTourPackageRoutes')
 const reviewAttractionRoutes = require ('./routes/reviewAttractionRoutes')
 const reviewTourPackageRoutes = require ('./routes/reviewTourPackageRoutes')
-const blogRoutes = require ('./routes/blogRoutes')
 const forgetPasswordRoutes = require ('./routes/forgetPasswordRoutes')
 const passport = require("passport");
 
@@ -52,7 +51,6 @@ app.use(wishlistAttracttionRoutes)
 app.use(wishlistTourPackageRoutes)
 app.use(reviewAttractionRoutes)
 app.use(reviewTourPackageRoutes)
-app.use(blogRoutes)
 app.use(forgetPasswordRoutes)
 app.use(tourPackageCatRoutes)
 

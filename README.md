@@ -9,7 +9,20 @@ This is API Service for Exploreka - Capstone Project on Bangkit 2023.
 - Wishlist Tour Package
 - Review Attraction
 - Review Tour Package
+- Partner
 - Article
+- Tour Package Category
+- Attraction Facility
+
+## Built with:
+- NodeJS
+- ExpressJS
+- Docker
+- Google Cloud Run
+- Google Artifact Registry
+- Google Cloud Build
+- Google Cloud Storage
+- Google CloudSQL
 
 ## Getting Started
 ### Install

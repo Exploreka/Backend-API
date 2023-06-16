@@ -43,6 +43,7 @@ This is API Service for Exploreka - Capstone Project on Bangkit 2023.
   ```
 
 ## Related links
+- [Base URL - API](https://exploreka-x5mwrabp6a-et.a.run.app/)
 - [API Documentation](https://documenter.getpostman.com/view/25237784/2s93sW7a5e)
 - [Cloud Infrastructure](https://drive.google.com/file/d/1w7NKs-BuqejFDr0wC9ILYz3_tre5wRO3/view?usp=sharing)
 - [Database Design](https://drive.google.com/file/d/1ccFxubUJpN_jV7pOlr_M0uDKJqMjEg6B/view?usp=sharing)

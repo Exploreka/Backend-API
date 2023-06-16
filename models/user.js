@@ -9,7 +9,8 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true,
       unique: true,
-      defaultValue: 401
+      defaultValue: 404,
+      startValue: 404
     },
     'email_user': {
       type: DataTypes.STRING,
